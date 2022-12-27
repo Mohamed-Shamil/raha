@@ -1,0 +1,148 @@
+
+</head>
+
+<body>
+
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>View Products</h1>
+     
+    </div><!-- End Page Title -->
+
+    
+           
+
+
+          
+
+        
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Products</h5>
+              
+             
+
+             
+
+              <!-- Primary Color Bordered Table -->
+              <table class="table text-center table-bordered datatable table-hover  ">
+                <thead>
+                  <tr>
+                    <th scope="col">SI No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">price</th>
+                    <th scope="col">Offer Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Operations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {{#each product }}
+                  <tr id="{{this._id}}">
+                    <th>{{'inc' @index}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.discription}}</td>
+                    {{#if this.oldPrice}}
+                   
+                    <td>{{this.oldPrice}}</td>
+                    <td>{{this.price}}</td>
+                    
+                    {{else}}
+                     <td>{{this.price}}</td>
+                    <td>No offer</td>
+                    
+                    {{/if}}
+                    {{#if (stockStatus this.stock)}}
+                    <td style="color: red;">Out of Stock</td>
+                    {{else}}
+                    <td>{{this.stock}}</td>
+                    {{/if}}
+                    <td><img style="width:40px; height:auto" src="/pictures/product-images/{{this.img.[0]}}" ></td>
+                    <td>
+                        
+                        <a class="btn" href="/admin/editproduct/{{this._id}}"><img style="width: 15px;" src="/assets/images/edit-new-icon-22.png"></a>
+                        {{!-- <button class="btn">
+                            <a href="/admin/editproducts/{{this._id}}" ><img style="width: 20px;" src="/assets/images/edit-new-icon-22.png"></a>
+                        </button> --}}
+
+                        <button class="btn" onclick="deleteproducts('{{this._id}}')">
+                            <img style="width:30px;" src="/assets/images/dltbtn.png">
+                        </button>
+
+                    </td>
+                  </tr>
+                 {{/each}}
+                </tbody>
+              </table>
+              <!-- End Primary Color Bordered Table -->
+
+            </div>
+          </div>
+
+          
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+  <script>
+ 
+    function deleteproducts(productId){
+         swal({
+  title: "Are you sure?",
+  text: "Once deleted, you will not be able to recover this product!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    $.ajax({
+            url:'/admin/deleteproduct/'+ productId,
+            method:'delete',
+            success:(response)=>{
+               swal({text:"The selected Product is Deleted!",
+               icon:'success'
+               });
+
+                document.getElementById(productId).style.display='none'
+            }
+        })
+  } else {
+    swal("Your product is safe!");
+  }
+});
+        
+    }
+  </script>
+   
+
+  <!-- Vendor JS Files -->
+  <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/admin-assets/vendor/chart.js/chart.min.js"></script>
+  <script src="/admin-assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/admin-assets/vendor/quill/quill.min.js"></script>
+  <script src="/admin-assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/admin-assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

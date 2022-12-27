@@ -1,0 +1,122 @@
+
+<body>
+
+  
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Add Category</h1>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section ">
+    
+      <div class="row g-3">
+        <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Edit Coupons</h5>
+
+              <!-- General Form Elements -->
+              
+              <form id="couponForm" onsubmit="return addCouponValidate()" name="addCouponForm">
+                
+                <div class="row mb-3">
+                  <label for="inputText"  class="form-label">coupon Code</label>
+                  <div class="col-sm-10">
+                    <input type="text" value="{{coupon.couponName}}" name="couponName" class="form-control">
+                     <label id="couponValidate" class="text-danger"></label>
+                  </div>
+                </div>
+             
+
+                 <div class="row mb-3">
+                  <label for="inputCoupon"  class="form-label">Percentage</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" value="{{coupon.percentage}}" name="percentage" > 
+                     <label id="percentageValidate" class="text-danger"></label>
+                  </div>
+                </div>
+                <input type="text" name="couponId" value="{{coupon._id}}" hidden>
+
+                <div class="row mb-3">
+                  
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Submit </button>
+                  </div>
+                </div>
+                
+              </form><!-- End General Form Elements -->
+           
+            </div>
+          </div>
+
+        </div>
+
+      
+      </div>
+      
+    </section>
+
+  </main><!-- End #main -->
+
+ 
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/admin-assets/vendor/chart.js/chart.min.js"></script>
+  <script src="/admin-assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/admin-assets/vendor/quill/quill.min.js"></script>
+  <script src="/admin-assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/admin-assets/js/main.js"></script>
+
+
+  <script>
+    function addCouponValidate(){
+
+    let name = document.forms["addCouponForm"]["couponName"].value
+    let price = document.forms["addCouponForm"]["percentage"].value
+   
+    
+    if(name == "" ||name.trim() == "" ){
+      document.getElementById('couponValidate').innerHTML = "Coupon Must be Filled"
+      return false
+    }else if(price == "" ){
+      document.getElementById('percentageValidate').innerHTML="Percentage Should be Filled"
+      return false
+    }
+     
+}
+    
+
+      $("#couponForm").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/admin/editcoupon',
+                method: 'post',
+                data: $("#couponForm").serialize(),
+                success: (response) => {
+                    if(response.status){
+                         Swal.fire('Coupon is Updated')
+                   
+                         setTimeout(function(){ window. location. href= "/admin/view-coupons"; }, 3000);    
+                    
+                    }
+
+                }
+            })
+        })
+
+  </script>
+
+
+</body>

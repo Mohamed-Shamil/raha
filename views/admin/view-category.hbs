@@ -1,0 +1,101 @@
+
+
+
+<body>
+
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>View Category</h1>
+     
+    </div><!-- End Page Title -->
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Category</h5>
+   
+
+              <!-- Primary Color Bordered Table -->
+              <table class="table datatable table-hover ">
+                <thead>
+                  <tr>
+                    <th scope="col">SI No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Discription</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  {{#each category}}
+                  <tr id="{{this._id}}">
+                    <th scope="row">{{'inc' @index}}</th>
+                    <td>{{this.categoryName}}</td>
+                    <td>{{this.discription}}</td>
+                     <td><img style="width:40px; height:auto" src="/pictures/category-images/{{this.img}}" ></td>
+                    <td>
+                        
+                       
+                        <a class="btn btn-info" href="/admin/editcategory/{{this._id}}" >
+                          Edit
+                        </a>
+
+                        <a class="btn btn-danger" onclick="deleteCategory('{{this._id}}')">
+                           Delete
+                        </a>
+
+                    </td>
+                   
+                  </tr>
+                  {{/each}}
+                </tbody>
+               
+              </table>
+              <!-- End Primary Color Bordered Table -->
+
+            </div>
+          </div>
+
+          
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+ 
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/admin-assets/vendor/chart.js/chart.min.js"></script>
+  <script src="/admin-assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/admin-assets/vendor/quill/quill.min.js"></script>
+  <script src="/admin-assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/admin-assets/js/main.js"></script>
+
+  <script>
+    function deleteCategory(categoryId){
+      $.ajax ({
+        url:'/admin/deletecategory/'+categoryId,
+        method:'delete',
+        success:(response)=>{
+          document.getElementById(categoryId).style.display="none"
+        }
+      })  
+    } 
+     </script>
+   
+
+</body>
+

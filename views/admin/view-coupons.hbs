@@ -1,0 +1,112 @@
+
+
+
+<body>
+
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>View Category</h1>
+     
+    </div><!-- End Page Title -->
+
+    
+           
+
+
+          
+
+        
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Coupons</h5>
+              
+             
+                <div>
+
+                    <table class="table datatable table-hover ">
+                <thead>
+                  <tr>
+                    <th scope="col">SI No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">percentage</th>
+            
+                    <th scope="col">Offer Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {{#each coupons}}
+
+                         <tr id="{{this._id}}">
+                    <th scope="row">{{'inc' @index}}</th>
+                    <td>{{this.couponName}}</td>
+                    <td>%{{this.percentage}}</td>
+
+                    <td>
+                        <a class="btn btn-info" href="/admin/editCoupon/{{this._id}}" >
+                          Edit
+                        </a>
+
+                        <a class="btn btn-danger" onclick="deleteCoupon('{{this._id}}')">
+                           Delete
+                        </a>
+
+                    </td>
+                   
+                  </tr>
+
+                    {{/each}}
+                    </tbody>
+                </div>
+             
+
+            
+
+            </div>
+          </div>
+
+          
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+ 
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/admin-assets/vendor/chart.js/chart.min.js"></script>
+  <script src="/admin-assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/admin-assets/vendor/quill/quill.min.js"></script>
+  <script src="/admin-assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/admin-assets/js/main.js"></script>
+
+   <script>
+    function deleteCoupon(couponId){
+      $.ajax ({
+        url:'/admin/deleteCoupon/'+couponId,
+        method:'delete',
+        success:(response)=>{
+             alert(response)
+          document.getElementById(couponId).style.display="none"
+          location.reload()
+        }
+      })  
+    } 
+     </script>
+   
+
+</body>
+

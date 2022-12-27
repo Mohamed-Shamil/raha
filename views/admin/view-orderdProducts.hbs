@@ -1,0 +1,199 @@
+<style>
+  .gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #ffffff;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 255));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 255))
+  }
+
+  #progressbar-1 {
+    color: #455A64;
+  }
+
+  #progressbar-1 li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+  }
+
+  #progressbar-1 #step1:before {
+    content: "1";
+    color: #fff;
+    width: 29px;
+    margin-left: 22px;
+    padding-left: 11px;
+  }
+
+  #progressbar-1 #step2:before {
+    content: "2";
+    color: #fff;
+    width: 29px;
+  }
+
+  #progressbar-1 #step3:before {
+    content: "3";
+    color: #fff;
+    width: 29px;
+    margin-right: 22px;
+    text-align: center;
+  }
+
+  #progressbar-1 li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: #455A64;
+    border-radius: 50%;
+    margin: auto;
+  }
+
+  #progressbar-1 li:after {
+    content: '';
+    width: 121%;
+    height: 2px;
+    background: #455A64;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 15px;
+    z-index: -1;
+  }
+
+  #progressbar-1 li:nth-child(2):after {
+    left: 50%
+  }
+
+  #progressbar-1 li:nth-child(1):after {
+    left: 25%;
+    width: 121%
+  }
+
+  #progressbar-1 li:nth-child(3):after {
+    left: 25%;
+    width: 50%;
+  }
+
+  #progressbar-1 li.active:before,
+  #progressbar-1 li.active:after {
+    background: #1266f1;
+  }
+
+  .card-stepper {
+    z-index: 0
+  }
+</style>
+
+<main id="main" class="main">
+
+  <body>
+    {{!-- >>>>>>>>>>>>>>>>>>--}}
+
+    {{#each viewProducts}}
+    <section class="vh-100 gradient-custom-2">
+
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-10 col-lg-8 col-xl-6">
+
+            <div class="card card-stepper" style="border-radius: 16px;">
+              <div class="card-header p-4">
+                <div class="d-flex justify-content-between align-items-center">
+
+                  <div>
+                    <p class="text-muted mb-2"> Order ID <span class="fw-bold text-body">{{this._id}}</span></p>
+
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="card-body p-4">
+                <div class="d-flex flex-row mb-4 pb-2">
+                  <div class="flex-fill">
+                    <h5 class="bold">{{this.product.name}}</h5>
+                    <p class="text-muted"> Qt: {{this.quantity}} item</p>
+                    <input type="number" value="{{this.quantity}}" id="quantityId" hidden>
+                    <h4 class="mb-3">₹{{this.product.price}} <span class="small text-muted"> via (COD) </span></h4>
+                    <p> Status:<span class="text-danger"> {{this.status}}</span></p>
+
+
+                  </div>
+                  <div>
+                    <img class="align-self-center img-fluid" src="/pictures/product-images/{{this.product.img.[0]}}"
+                      width="250">
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  Status :
+                  <select class="btn btn-dark" name=""
+                    onchange="changeStatus('{{this._id}}','{{this.product._id}}',event)">
+                    
+                    {{#if  (cancel this.status)}}
+                      <option value="canceled">Canceled</option>  
+                    {{else}}
+                    {{#if (delivered this.status)}}
+                     <option value="delivered">Delivered</option>
+                    {{else}}
+                    <option value="{{this.status}}">{{this.status}}</option>
+                    <option value="dispatched">Dispatched</option>  
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="canceled">Cancel</option>
+                    {{/if}}
+                    {{/if}}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>{{/each}}
+
+    {{!-- <<<<<<<<<<<<<<<<<<<<<<< --}} <!-- Vendor JS Files -->
+      <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
+      <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="/admin-assets/vendor/chart.js/chart.min.js"></script>
+      <script src="/admin-assets/vendor/echarts/echarts.min.js"></script>
+      <script src="/admin-assets/vendor/quill/quill.min.js"></script>
+      <script src="/admin-assets/vendor/simple-datatables/simple-datatables.js"></script>
+      <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
+      <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
+
+      <!-- Template Main JS File -->
+      <script src="/admin-assets/js/main.js"></script>
+
+      <script>
+        function changeStatus(orderId, proId, event) {
+          value = event.target.value
+          let quantity = document.getElementById('quantityId').value;
+          $.ajax({
+            url: '/admin/update-status',
+            method: 'post',
+            data: {
+              orderId: orderId,
+              proId: proId,
+              status: value,
+              quantity: quantity
+            },
+            success: (response) => {
+              alert("hi")
+              if (response.status) {
+                location.reload()
+              }
+            }
+
+
+          })
+        }
+      </script>
+  </body>
+</main>

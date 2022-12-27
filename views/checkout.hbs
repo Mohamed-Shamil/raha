@@ -1,0 +1,727 @@
+<style>
+    :root {
+        --card-line-height: 1.2em;
+        --card-padding: 1em;
+        --card-radius: 0.5em;
+        --color-green: #558309;
+        --color-gray: #e2ebf6;
+        --color-dark-gray: #c4d1e1;
+        --radio-border-width: 2px;
+        --radio-size: 1.5em;
+    }
+
+    .grid {
+        display: grid;
+        grid-gap: var(--card-padding);
+        margin: 0 auto;
+        max-width: 60em;
+        padding: 0;
+    }
+
+    @media (min-width: 42em) {
+        .grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: var(--card-radius);
+        position: relative;
+    }
+
+    .card:hover {
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .radio {
+        font-size: inherit;
+        margin: 0;
+        position: absolute;
+        right: calc(var(--card-padding) + var(--radio-border-width));
+        top: calc(var(--card-padding) + var(--radio-border-width));
+    }
+
+    @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+        .radio {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: #fff;
+            border: var(--radio-border-width) solid var(--color-gray);
+            border-radius: 50%;
+            cursor: pointer;
+            height: var(--radio-size);
+            outline: none;
+            transition: background 0.2s ease-out, border-color 0.2s ease-out;
+            width: var(--radio-size);
+        }
+
+        .radio::after {
+            border: var(--radio-border-width) solid #fff;
+            border-top: 0;
+            border-left: 0;
+            content: '';
+            display: block;
+            height: 0.75rem;
+            left: 25%;
+            position: absolute;
+            top: 50%;
+            transform: rotate(45deg) translate(-50%, -50%);
+            width: 0.375rem;
+        }
+
+        .radio:checked {
+            background: var(--color-green);
+            border-color: var(--color-green);
+        }
+
+        .card:hover .radio {
+            border-color: var(--color-dark-gray);
+        }
+
+        .card:hover .radio:checked {
+            border-color: var(--color-green);
+        }
+    }
+
+    .plan-details {
+        border: var(--radio-border-width) solid var(--color-gray);
+        border-radius: var(--card-radius);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        padding: var(--card-padding);
+        transition: border-color 0.2s ease-out;
+    }
+
+    .card:hover .plan-details {
+        border-color: var(--color-dark-gray);
+    }
+
+    .radio:checked~.plan-details {
+        border-color: var(--color-green);
+    }
+
+    .radio:focus~.plan-details {
+        box-shadow: 0 0 0 2px var(--color-dark-gray);
+    }
+
+    .radio:disabled~.plan-details {
+        color: var(--color-dark-gray);
+        cursor: default;
+    }
+
+    .radio:disabled~.plan-details .plan-type {
+        color: var(--color-dark-gray);
+    }
+
+    .card:hover .radio:disabled~.plan-details {
+        border-color: var(--color-gray);
+        box-shadow: none;
+    }
+
+    .card:hover .radio:disabled {
+        border-color: var(--color-gray);
+    }
+
+    .plan-type {
+        color: var(--color-green);
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1em;
+    }
+
+    .plan-cost {
+        font-size: 2.5rem;
+        font-weight: bold;
+        padding: 0.5rem 0;
+    }
+
+    .slash {
+        font-weight: normal;
+    }
+
+    .plan-cycle {
+        font-size: 2rem;
+        font-variant: none;
+        border-bottom: none;
+        cursor: inherit;
+        text-decoration: none;
+    }
+
+    .hidden-visually {
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+</style>
+
+<div class="page-wrapper">
+
+
+    <main class="main">
+
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">Checkout<span>Shop</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="container">
+            <div class="row col-lg-6">
+                <form id="submit-coupon">
+                    <div class="input-group mb-5">
+                        <input type="text" class="form-control bg-transparent" name="coupon" id='coupon'
+                            placeholder="Apply Your Coupon Code" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary-2" type="submit">
+                                <span>Apply Coupon</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="ml-5">
+                <p id="couponApplied" class="text-success"></p>
+                <p id="couponNotApplied" class="text-danger"></p>
+            </div>
+        </div>
+
+        {{!--coupon modal button --}}
+        <div class="col-lg-6">
+            <a href="#coupon-modal" class="" data-toggle="modal"><i class="icon-user    "></i>Add
+                Coupon</a>
+        </div>
+        {{!--coupon modal button ends --}}
+        {{!-- modal button --}}
+        <div class="col-lg-6">
+            <button href="#signin-modal" class="btn btn-info ml-5" data-toggle="modal"><i class="icon-user    "></i>Add
+                Address</button>
+        </div>
+        {{!-- modal button ends --}}
+
+        <div class="page-content">
+            <div class="checkout">
+                <div class="container">
+
+                    <form action="" id="checkout-form">
+                        <div class="row d-flex  ">
+
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>First Name *</label>
+                                            <input type="text" name="firstName" id="firstname" class="form-control"
+                                                required>
+                                        </div><!-- End .col-sm-6 -->
+
+                                        <div class="col-sm-6">
+                                            <label>Last Name *</label>
+                                            <input type="text" style="width: 600px;" name="lastName" id="lastname"
+                                                class="form-control" required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+
+
+
+                                    <label>Country *</label>
+                                    <input type="text" name="country" id="cntry" class="form-control" required>
+
+                                    <label>Street address *</label>
+                                    <input type="text" class="form-control" id="houseAddress" name="address"
+                                        placeholder="House number and Street name" required>
+                                    {{!-- <input type="text" class="form-control"
+                                        placeholder="Appartments, suite, unit etc ..." required> --}}
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Town / City *</label>
+                                            <input type="text" class="form-control" id="town" name="city" required>
+                                        </div><!-- End .col-sm-6 -->
+
+                                        <div class="col-sm-6">
+                                            <label>State *</label>
+                                            <input type="text" class="form-control" id="stateId" name="state" required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Postcode / ZIP *</label>
+                                            <input type="text" class="form-control" id="zip" name="pincode" required>
+                                        </div><!-- End .col-sm-6 -->
+
+                                        <div class="col-sm-6">
+                                            <label>Phone *</label>
+                                            <input type="tel" class="form-control" id="mobile" name="phone" required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+
+                                    <label>Email address *</label>
+                                    <input type="email" class="form-control" id="mail" name="email" required>
+                                    <input type="text" name="userId" id="user" value="{{user._id}}" hidden>
+
+
+                                </div><!-- End .col-lg-9 -->
+
+                            </div><!-- End .row -->
+
+
+                            <aside class=" col-lg-3">
+                                <div class="summary ">
+                                    <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+                                    <table class="table table-summary">
+
+
+                                        <tbody>
+
+                                            <tr class="summary-subtotal">
+                                                <td>Subtotal:</td>
+                                                <td>${{total}}</td>
+                                            </tr><!-- End .summary-subtotal -->
+                                            <tr>
+                                                <td>Shipping:</td>
+                                                <td>Free shipping</td>
+                                            </tr>
+                                            <tr class="summary-total">
+                                                <td>Total:</td>
+                                                <input id="total" value="{{total}}" hidden>
+                                                <td id="showTotal" value="">${{total}}</td>
+                                                <input id="newTotal" name="newTotal" value="" hidden>
+                                                <input id="walletBalance"  value="{{wallet.balance}}" hidden>
+
+                                                {{!-- --}}
+                                                <input id="couponName" name="coupon" type="text" value="" hidden>
+                                                <input name="percentage" id="couponPercentage" type="number" value=""
+                                                    hidden>
+
+                                                {{!-- --}}
+                                            </tr><!-- End .summary-total -->
+                                        </tbody>
+                                    </table><!-- End .table table-summary -->
+
+                                    <div class="accordion-summary" id="accordion-payment">
+
+                                        <div class="card" id="hideBotton">
+                                            <div class="card-header" id="heading-4">
+                                                <p class="card-title">
+                                                    <input type="radio" id="wallet" onclick="checkWallet()" name="payment-method"
+                                                        value="Wallet">
+                                                    Wallet
+                                                    </input>
+                                                </p>
+
+                                            </div><!-- End .card -->
+
+
+                                        </div><!-- End .card -->
+                                        <hr>
+                                        <div class="card">
+                                            <div class="card-header" id="heading-4">
+                                                <p class="card-title">
+                                                    <input type="radio" name="payment-method" value="ONLINE">
+                                                    Razor Pay
+                                                    </input>
+                                                </p>
+
+                                            </div><!-- End .card -->
+                                            <br>
+
+                                        </div><!-- End .card -->
+
+                                        <div class="card">
+                                            <div class="card-header" id="heading-4">
+                                                <p class="card-title">
+                                                    <input type="radio" name="payment-method" value="paypal">
+                                                    Paypal</input>
+                                                </p>
+                                            </div><!-- End .card-header -->
+                                        </div><!-- End .card -->
+                                        <br>
+                                        <div class="card">
+                                            <div class="card-header" id="heading-4">
+                                                <p class="card-title">
+                                                    <input type="radio" name="payment-method" value="COD">
+                                                    Cash On Delivery
+                                                    </input>
+                                                </p>
+                                            </div><!-- End .card-header -->
+                                        </div><!-- End .accordion --><br>
+
+                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                            <span class="btn-text">Place Order</span>
+                                            <span class="btn-hover-text">Proceed to Checkout</span>
+                                        </button>
+                                    </div><!-- End .summary -->
+                            </aside><!-- End .col-lg-3 -->
+                        </div><!-- End .row -->
+                    </form>
+
+
+
+                </div><!-- End .container -->
+            </div><!-- End .checkout -->
+
+        </div><!-- End .page-content -->
+        <div class="container">
+            <div class="">{{#each address}}
+                <label class="card">
+                    <input name="plan" class="radio" type="radio" onclick="fetchAddress('{{this._id}}')" checked>
+                    <span class="plan-details">
+                        <span class="plan-type">{{this.firstName}} {{this.lastName}}</span>
+                        <p class="text-danger">+91 {{this.phone}}<span class="text-primary"> ,
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{this.email}}</span></p>
+                        <span>{{this.address}} , {{this.city}}, {{this.state}} {{this.pincode}}</span>
+                        <span>{{this.country}}</span>
+
+                    </span>
+                </label>
+                {{/each}}
+
+
+            </div>
+        </div>
+    </main><!-- End .main -->
+
+
+
+    {{!-- form modal starts here --}}
+
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-info" id="signin-tab" data-toggle="tab"
+                                        href="addAddress" role="tab" aria-controls="signin" aria-selected="true">Add
+                                        Address</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5"></div>
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                aria-labelledby="signin-tab">
+                                {{!--modal form starts here --}}
+                                <form action="/add-address" method="post">
+                                    <div class="row">
+                                        <div class="">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>First Name *</label>
+                                                    <input type="text" name="firstName" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Last Name *</label>
+                                                    <input type="text" name="lastName" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+
+
+                                            <label>Country *</label>
+                                            <input type="text" name="country" class="form-control" required>
+
+                                            <label>Street address *</label>
+                                            <input type="text" class="form-control" name="address"
+                                                placeholder="House number and Street name" required>
+                                            {{!-- <input type="text" class="form-control"
+                                                placeholder="Appartments, suite, unit etc ..." required> --}}
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Town / City *</label>
+                                                    <input type="text" class="form-control" name="city" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>State / County *</label>
+                                                    <input type="text" class="form-control" name="state" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Postcode / ZIP *</label>
+                                                    <input type="text" class="form-control" name="pincode" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Phone *</label>
+                                                    <input type="tel" class="form-control" name="phone" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <label>Email address *</label>
+                                            <input type="email" class="form-control" name="email" required>
+                                            <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+
+                                            <button type="submit"
+                                                class="btn btn-outline-primary-2 d-flex justify-content-center btn-order btn-block">
+                                                <span class="btn-text">Add your Address</span>
+                                                <span class="btn-hover-text">Submit Your Address</span>
+                                            </button>
+                                        </div><!-- End .col-lg-9 -->
+
+                                    </div><!-- End .row -->
+                                </form>
+                                {{!-- modal form ends here --}}
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+
+{{!-- form modal ends here --}}
+
+{{!-- --------------- --}}
+{{!-- coupon modal starts here --}}
+
+<div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+                    <div class="form-tab">
+                        <ul class="nav nav-pills nav-fill" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active text-info" id="signin-tab" data-toggle="tab" href="addAddress"
+                                    role="tab" aria-controls="signin" aria-selected="true">Add
+                                    Coupon </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-content-5"></div>
+                        <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                            {{!--modal form starts here --}}
+                            <div class="container"><br>
+                                <div class="col-lg-4">{{#each coupon}}
+                                    <label class="card">
+                                        <input name="plan" class="radio" type="radio"
+                                            onclick="fetchCoupon('{{this._id}}')">
+                                        <span class="plan-details">
+                                            <span>Coupon Code :</span> <span class="plan-type"> {{this.couponName}}
+                                            </span>
+                                            <p class="text-danger">Coupon Code: %{{this.percentage}}<span
+                                                    class="text-primary"> ,
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                                        </span>
+                                    </label>
+                                    {{/each}}
+
+
+                                </div>
+                            </div>
+                            {{!-- modal form ends here --}}
+                        </div><!-- .End .tab-pane -->
+                    </div><!-- End .tab-content -->
+                </div><!-- End .form-tab -->
+            </div><!-- End .form-box -->
+        </div><!-- End .modal-body -->
+    </div><!-- End .modal-content -->
+</div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+
+{{!-- coupon modal ends here --}}
+
+
+<script>
+
+    $('#checkout-form').submit((e) => {
+
+        e.preventDefault()
+        $.ajax({
+            url: '/place-order',
+            data: $('#checkout-form').serialize(),
+            type: 'post',
+            success: (response) => {
+                console.log(response)
+                if (response.codSuccess) {
+                    location.href = '/order-success'
+                } else if (response.online) {
+                    razorpayPayment(response)
+                } else if (response.link) {
+
+                    location.href = response
+                }
+
+            }
+        })
+    })
+
+
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_BLQdwzIvFCyVxb", // Enter the Key ID generated from the Dashboard
+            "amount": parseInt(order.amount) * 100,    // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "RAHA",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "handler": function (response) {
+
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment: payment,
+                order: order
+            },
+            type: 'post',
+            success: (response) => {
+                console.log(response)
+                if (response) {
+                    Swal.fire('Payment Successfull')
+                    location.href = '/order-success'
+                } else {
+                   Swal.fire('Payment Failed')
+                }
+
+            }
+        })
+    }
+</script>
+
+
+<script>
+    function fetchAddress(address) {
+
+        $.ajax({
+            url: '/get-address-details/' + address,
+            method: 'get',
+            success: (response) => {
+
+                console.log(response)
+                document.getElementById("firstname").value = response.firstName
+                document.getElementById("lastname").value = response.lastName
+                document.getElementById("cntry").value = response.country
+                document.getElementById("houseAddress").value = response.address
+                document.getElementById("town").value = response.city
+                document.getElementById("stateId").value = response.state
+                document.getElementById("zip").value = response.pincode
+                document.getElementById("mobile").value = response.phone
+                document.getElementById("mail").value = response.email
+            }
+        })
+    }
+</script>
+<script>
+    function fetchCoupon(coupon) {
+        $.ajax({
+            url: '/get-coupon/' + coupon,
+            method: 'get',
+            success: (response) => {
+                
+                document.getElementById("coupon").value = response.couponName
+            }
+        })
+    }
+</script>
+
+<script>
+    function checkWallet() {
+       
+        let walletBalance = document.getElementById('walletBalance').value
+        let totalAmount = document.getElementById('total').value
+
+    console.log(walletBalance)
+     console.log(totalAmount)
+        if (totalAmount < walletBalance) {
+            Swal.fire({
+                icon: 'error',
+  	            title: 'Insufficient Balance',
+           }).then(()=>{
+		document.getElementById('hideBotton').style.display = 'none'
+		})
+        }
+    }
+
+</script>
+
+<script>
+    $('#submit-coupon').submit((e) => {
+        e.preventDefault(),
+            $.ajax({
+                url: '/sumbit-coupon',
+                data: $('#submit-coupon').serialize(),
+                method: 'post',
+                success: (response) => {
+                    console.log(response)
+                    if (response) {
+                        document.getElementById('couponName').value = response.couponName
+                        document.getElementById('couponPercentage').value = response.percentage
+                        document.getElementById('couponApplied').innerHTML = "Coupon Applied"
+                        percentage = response.percentage
+                        total = document.getElementById('total').value
+                        limit = total * 40 / 100
+                        offer_price = limit * percentage / 100
+                        total_price = total - offer_price
+                        console.log(total_price)
+                        document.getElementById('showTotal').innerHTML = Math.ceil(total_price)
+                        document.getElementById('newTotal').value = Math.ceil(total_price)
+
+                    } else {
+                        
+                        document.getElementById('couponNotApplied').innerHTML = "Invalid Coupon "
+                        location.reload()
+                    }
+                }
+            })
+    })
+</script>

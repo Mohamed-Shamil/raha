@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/admin-assets/img/favicon.png" rel="icon">
+  <link href="/admin-assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/admin-assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin-assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/admin-assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/admin-assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/admin-assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/admin-assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/admin-assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/admin-assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.4.1
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  
+
+  <h1>hshs</h1>
+<div id="main">
+
+   <div class="card">
+      <div class="card-body">
+
+         <!-- Bordered Tabs Justified -->
+         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+            <li class="nav-item flex-fill" role="presentation">
+               <button
+                  class="nav-link w-100 active"
+                  id="home-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#bordered-justified-home"
+                  type="button"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+               >Daily Sales Report</button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+               <button
+                  class="nav-link w-100"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#bordered-justified-profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+               >Monthly Sales Report</button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+               <button
+                  class="nav-link w-100"
+                  id="contact-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#bordered-justified-contact"
+                  type="button"
+                  role="tab"
+                  aria-controls="contact"
+                  aria-selected="false"
+               >Yearly Sales Report</button>
+            </li>
+         </ul>
+         <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+
+            <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+
+               <div class="card">
+                  <div class="card-body">
+
+                     <!-- Table with hoverable rows -->
+                     <table class="table table-hover" id="weekly-table">
+                        <thead>
+                           <tr>
+                              <th scope="col">Date</th>
+                              <th scope="col">Total Sale Amount</th>
+                              <th scope="col">Total No of Order</th>
+
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {{#each dailySales}}
+
+                              <tr>
+                                 {{! <th scope="row"><input type="checkbox" /></th> }}
+
+                                 <td class="tm-product-name">{{this._id}}</td>
+                                 <td class="tm-product-name">{{this.dailySaleAmount}}</td>
+                                 <td class="tm-product-name">{{this.count}}</td>
+
+                              </tr>
+
+                           {{/each}}
+
+                           <tr>
+                              <td>
+                                 <h6 class="text-center"><strong>Total Sale:</strong>{{dailySales.totalamount}}</h6>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+                     <!-- End Table with hoverable rows -->
+
+                  </div>
+               </div>
+               <button class="btn btn-outline-success" onclick="weeklyReportPDF()"><i class="bi bi-download"></i>
+                  Download Pdf</button>
+               <button class="btn btn-outline-success" onclick="dailyData()"><i class="bi bi-download"></i>
+                  Download exel</button>
+
+            </div>
+
+            <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+
+               <div class="card">
+                  <div class="card-body">
+
+                     <!-- Table with hoverable rows -->
+                     <table class="table table-hover" id="monthly-table">
+                        <thead>
+                           <tr>
+                              <th scope="col">month</th>
+                              <th scope="col">Total Sale Amount</th>
+                              <th scope="col">Total No of Order</th>
+
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {{#each monthlySales}}
+
+                              <tr>
+                                 {{! <th scope="row"><input type="checkbox" /></th> }}
+
+                                 <td class="tm-product-name">{{this._id}}</td>
+                                 <td class="tm-product-name">{{this.monthlySaleAmount}}</td>
+                                 <td class="tm-product-name">{{this.count}}</td>
+
+                              </tr>
+
+                           {{/each}}
+                           <tr>
+                              <td>
+                                 <h6 class="text-center"> <strong>Total Sale:</strong>{{monthlySales.totalamount}}</h6>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+                     <!-- End Table with hoverable rows -->
+
+                  </div>
+               </div>
+               <button class="btn btn-outline-success" onclick="monthlyReportPDF()"><i class="bi bi-download"></i>
+                  Download</button>
+               <button class="btn btn-outline-success" onclick="monthlyData()"><i class="bi bi-download"></i>
+                  Download exel</button>
+
+            </div>
+
+            <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
+
+               <div class="card">
+                  <div class="card-body">
+
+                     <!-- Table with hoverable rows -->
+                     <table class="table table-hover" id="yearly-table">
+                        <thead>
+                           <tr>
+                              <th scope="col">year</th>
+                              <th scope="col">Total Sale Amount</th>
+                              <th scope="col">Total No of Order</th>
+
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {{#each yearlySales}}
+
+                              <tr>
+                                 {{! <th scope="row"><input type="checkbox" /></th> }}
+
+                                 <td class="tm-product-name">{{this._id}}</td>
+                                 <td class="tm-product-name">{{this.yearlySaleAmount}}</td>
+                                 <td class="tm-product-name">{{this.count}}</td>
+
+                              </tr>
+
+                           {{/each}}
+                           <tr>
+                              <td>
+                                 <h6 class="text-center"> <strong>Total Sale:</strong> {{yearlySales.totalamount}}</h6>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+                     <!-- End Table with hoverable rows -->
+
+                  </div>
+               </div>
+               <button class="btn btn-outline-success" onclick="yearlyReportPDF()"><i class="bi bi-download"></i>
+                  Download</button>
+               <button class="btn btn-outline-success" onclick="yearlyData()"><i class="bi bi-download"></i>
+                  Download exel</button>
+
+            </div>
+         </div><!-- End Bordered Tabs Justified -->
+
+      </div>
+   </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+ <script type="text/javascript">
+                
+    function weeklyReportPDF() {
+        var doc = new jsPDF('p', 'pt', 'letter');
+        var htmlstring = '';
+        var tempVarToCheckPageHeight = 0;
+        var pageHeight = 0;
+        pageHeight = doc.internal.pageSize.height;
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector  
+            '#bypassme': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"  
+                return true
+            }
+        };
+        margins = {
+            top: 150,
+            bottom: 60,
+            left: 40,
+            right: 40,
+            width: 600
+        };
+        var y = 20;
+        doc.setLineWidth(2);
+        doc.text(200, y = y + 30, "Weekly Sales Report");
+        doc.autoTable({
+            html: '#weekly-table',
+            startY: 70,
+            theme: 'grid',
+            columnStyles: {
+                0: {
+                    cellWidth: 180,
+                },
+                1: {
+                    cellWidth: 80,
+                },
+                2: {
+                    cellWidth: 80,
+                },
+                {{!-- 3: {
+                    cellWidth: 80,
+                } --}}
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+        doc.save('sales-weekly-report.pdf');
+    } 
+
+
+    function monthlyReportPDF() {
+        var doc = new jsPDF('p', 'pt', 'letter');
+        var htmlstring = '';
+        var tempVarToCheckPageHeight = 0;
+        var pageHeight = 0;
+        pageHeight = doc.internal.pageSize.height;
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector  
+            '#bypassme': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"  
+                return true
+            }
+        };
+        margins = {
+            top: 150,
+            bottom: 60,
+            left: 40,
+            right: 40,
+            width: 600
+        };
+        var y = 20;
+        doc.setLineWidth(2);
+        doc.text(200, y = y + 30, "Monthly Sales Report");
+        doc.autoTable({
+            html: '#monthly-table',
+            startY: 70,
+            theme: 'grid',
+            columnStyles: {
+                0: {
+                    cellWidth: 180,
+                },
+                1: {
+                    cellWidth: 80,
+                },
+                2: {
+                    cellWidth: 80,
+                },
+                {{!-- 3: {
+                    cellWidth: 80,
+                } --}}
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+        doc.save('sales-monthly-report.pdf');
+    } 
+
+
+    function yearlyReportPDF() {
+        var doc = new jsPDF('p', 'pt', 'letter');
+        var htmlstring = '';
+        var tempVarToCheckPageHeight = 0;
+        var pageHeight = 0;
+        pageHeight = doc.internal.pageSize.height;
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector  
+            '#bypassme': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"  
+                return true
+            }
+        };
+        margins = {
+            top: 150,
+            bottom: 60,
+            left: 40,
+            right: 40,
+            width: 600
+        };
+        var y = 20;
+        doc.setLineWidth(2);
+        doc.text(200, y = y + 30, "Yearly Sales Report");
+        doc.autoTable({
+            html: '#yearly-table',
+            startY: 70,
+            theme: 'grid',
+            columnStyles: {
+                0: {
+                    cellWidth: 180,
+                },
+                1: {
+                    cellWidth: 80,
+                },
+                2: {
+                    cellWidth: 80,
+                },
+                {{!-- 3: {
+                    cellWidth: 80,
+                } --}}
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+        doc.save('sales-yearly-report.pdf');
+    } 
+
+
+    
+    function dailyData() {
+        const data = `
+                ,date,Total,no.of Order
+            {{#each DailySalesforDownload}}
+                ,{{_id}},{{DailySaleAmount}},{{count}}
+            {{/each}},GrandTotal,{{totalDaily.[0].GrandTotal}}`
+
+        const blob = new Blob([data], { type: 'octet-stream' })
+
+        const href = URL.createObjectURL(blob)
+
+        const a = Object.assign(document.createElement('a'), {
+            href,
+            style: 'display:none',
+            download: 'data.csv'
+        })
+
+        document.body.appendChild(a)
+
+        a.click()
+
+        URL.revokeObjectURL(href)
+
+        a.remove()
+    }
+
+    function monthlyData() {
+        const data = `
+            ,date, Total,no.of Order
+        {{#each MonthlySalesforDownload}}
+            ,{{_id}},{{MonthlySaleAmount}},{{count}}
+        {{/each}},GrandTotal,{{totalDaily.[0].GrandTotal}}`
+
+        const blob = new Blob([data], { type: 'octet-stream' })
+
+        const href = URL.createObjectURL(blob)
+
+        const a = Object.assign(document.createElement('a'), {
+            href,
+            style: 'display:none',
+            download: 'data.csv'
+        })
+
+        document.body.appendChild(a)
+
+        a.click()
+
+        URL.revokeObjectURL(href)
+
+        a.remove()
+    }
+
+    function yearlyData() {
+        const data = `
+            ,date, Total,no.of Order
+        {{#each YearlySalesforDownload}}
+            ,{{_id}},{{YearlySaleAmount}},{{count}}
+        {{/each}},GrandTotal,{{monthtotal.[0].GrandTotal}}`
+
+        const blob = new Blob([data], { type: 'octet-stream' })
+
+        const href = URL.createObjectURL(blob)
+
+        const a = Object.assign(document.createElement('a'), {
+            href,
+            style: 'display:none',
+            download: 'data.csv'
+        })
+
+        document.body.appendChild(a)
+
+        a.click()
+
+        URL.revokeObjectURL(href)
+
+        a.remove()
+    }
+
+     </script>
+
+
+
+  <!-- Vendor JS Files -->
+  <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/admin-assets/vendor/chart.js/chart.min.js"></script>
+  <script src="/admin-assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/admin-assets/vendor/quill/quill.min.js"></script>
+  <script src="/admin-assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/admin-assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1010 @@
+<body>
+    <div class="page-wrapper">
+        <main class="main">
+            <div class=" page-wrapper page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">My Account<span>RAHA</span></h1>
+                </div><!-- End .container -->
+            </div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row mt-5">
+                            <aside class="col-md-4 col-lg-3">
+                                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab"
+                                            href="#tab-dashboard" role="tab" aria-controls="tab-dashboard"
+                                            aria-selected="true">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders"
+                                            role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-downloads-link" data-toggle="tab"
+                                            href="#tab-downloads" role="tab" aria-controls="tab-downloads"
+                                            aria-selected="false">Wallet
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address"
+                                            role="tab" aria-controls="tab-address" aria-selected="false">Addresses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account"
+                                            role="tab" aria-controls="tab-account" aria-selected="false">Account
+                                            Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Sign Out</a>
+                                    </li>
+                                </ul>
+                            </aside><!-- End .col-lg-3 -->
+
+
+                            {{!-- Dashboard --}}
+                            <div class="col-md-8 col-lg-9">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel"
+                                        aria-labelledby="tab-dashboard-link">
+                                        <div style="border: 5px;" class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                                        <div class="container rounded bg-white">
+                                            <div class="row">
+
+                                                <div class="col-md-3 border-right">
+                                                    <div
+                                                        class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                                        <img class="rounded-circle mt-5" width="150px"
+                                                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                                        <span class="font-weight-bold">{{user.name}}</span><span
+                                                            class="text-black-50">{{user.email}}</span><span> </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-5 border-right">
+                                                    <div class="p-3 py-5">
+
+                                                     
+                                                   <table style="width:100%  " class="text-center">
+                                                            <tbody><tr class="col">
+                                                                <th>Name:</th>
+                                                                <td>{{user.name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Phone:</th>
+                                                                <td>{{user.phone}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>E-mail :</th>
+                                                                <td>{{user.email}}</td>
+                                                            </tr>
+                                                        </tbody></table>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+
+                                                        <h5 class="form-text mt-3">Referral Code </h5>
+
+                                                        <center><input type="text" value="{{user.userReferal}}" id="refCode" disabled="">
+                                                            <button class="btn btn-outline-success" onclick="myFunction()">Copy Referral Code</button>
+                                                        </center>
+
+
+                                                        <p class="text">Hello ,
+                                                            <br>
+                                                            From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent
+                                                                orders</a>,
+                                                            manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing
+                                                                addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your
+                                                                password and account details</a>.
+                                                        </p>
+                                                    </div>
+                                                    </div>
+                              
+                                    </div><!-- .End .tab-pane -->
+                                    {{!-- DashBoard ends --}}
+
+                                    {{!-- orders page --}}
+                                    <div class="tab-pane fade" id="tab-orders" role="tabpanel"
+                                        aria-labelledby="tab-orders-link">
+                                        <hr> {{#each orders}}
+                                        <div class="row  justify-content-center">
+
+                                            <div class="col-lg-4 text-center">
+                                                <p>Order Id :{{this._id}}</p>
+
+                                                <p>To :
+                                                <h6>{{this.deliveryDetails.firstName}} {{this.deliveryDetails.lastName}}
+                                                </h6>
+                                                </p>
+                                                <p>{{this.deliveryDetails.address}}</p>
+                                            </div>
+                                            <div class="col-lg-4 text-center">
+                                                <p>Total Amount :{{this.totalAmount}}</p>
+                                                <p>Payment Method :{{this.paymentMethod}}</p>
+                                                <br>
+                                                <p>Track Order :</p>
+
+                                                <p>Date :{{this.date}}</p>
+                                            </div>
+                                            <div class="col-lg-4 text-center">
+                                                <p>Click To ViewProducts</p>
+                                                <a style="height: 50px;" href="/view-ordered-products/{{this._id}}"
+                                                    class="btn btn-success text-white">View Products</a>
+                                            </div>
+                                        </div>
+                                        <hr>{{/each}}
+                                        {{!-- <a href="category.html" class="btn btn-outline-success-2"><span>GO
+                                                SHOP</span><i class="icon-long-arrow-right"></i></a> --}}
+
+
+                                    </div>
+                                    <!-- .End .tab-pane -->
+                                    {{!-- orders page end --}}
+
+
+                                    <div class="tab-pane fade" id="tab-downloads" role="tabpanel"
+                                        aria-labelledby="tab-downloads-link">
+                                        <div class="d-flex">
+                                           <img src="/pictures/other-images/raha.png" style="height:35px ;width:40px"> <h3 style="color:rgb(6, 139, 137) ;">RAHA Wallet</h3>
+                                        </div>
+                                        <div class="card">
+                                     <div class="card-body" style="border: 2px solid rgb(237, 214, 171);border-radius: 4px; width:auto ;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                        <img src="https://cdn.dribbble.com/users/61734/screenshots/5384735/media/cf4f6e9320fbf91053e149fc7cae6b72.png?compress=1&resize=1000x750&vertical=top" alt="" style="height:112px;" >
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 class="mt-5">Wallet Balance : </h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4 class="mt-5 ">₹ <span class="text-success mt-5">{{wallet.balance}}</span></h4>
+                                    </div>
+                                    <div class="col-md-3 mt-5">
+                                         <BUTTON ONCLICK="ShowAndHide()" id="showButton" class="btn btn-success rounded"> Transactions</BUTTON>
+                                    </div>
+                                    </div>
+                                    
+                                     </div>
+                                   </div>
+                                        <div  id="SectionName" STYLE="display:none">Transactions
+                                            {{#each wallet.transactions}}
+                                            <div class="card mt-3" style="border: 2px solid lightblue;border-radius: 4px; width:auto ;">
+                                            <div class="card-body col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                             {{this.date}}
+                                            </div>
+                                            <div class="col-md-3">
+                                               
+                                                Rs &nbsp; <span class="text-success">{{this.credit}}</span>
+                                               <br>
+                                                Rs &nbsp; <span class="text-danger">{{this.debit}}</span>
+                                                
+                                            </div>
+                                            <div class="col-md-3">
+                                      
+                                                <p class="text-success">Credited</p>
+                                              
+                                                <p class="text-danger">Debited </p>
+
+                                                
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>{{this.message}}</p>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-address" role="tabpanel"
+                                        aria-labelledby="tab-address-link">
+
+
+                                        <div class="row">{{#each address}}
+                                            <div class="col-lg-6">
+                                                <div class="card card-dashboard">
+                                                    <div class="card-body">
+                                                        <h3 class="card-title ">Billing Address</h3>
+                                                        <!-- End .card-title -->
+
+                                                        <p>{{this.firstName}} {{this.lastName}} <br>
+                                                            {{this.address}}
+                                                            {{this.mobile}}<br>
+                                                            {{this.pincode}}<br>
+                                                            {{this.state}},{{this.country}}<br>
+                                                            {{this.email}}<br>
+                                                            <a href="#edit-address" onclick="getAddress('{{this._id}}')"
+                                                                class=" " data-toggle="modal">Edit <i
+                                                                    class="icon-edit"></i></a>
+                                                        </p>
+                                                        <button class="float-right btn btn-danger btn-hover"
+                                                            onclick="deleteAddress('{{this._id}}')">Delete</button>
+                                                    </div><!-- End .card-body -->
+                                                </div><!-- End .card-dashboard -->
+
+                                            </div><!-- End .col-lg-6 -->
+                                            {{/each}}
+
+
+                                            <div class="col-lg-6">
+                                                <div class="card card-dashboard">
+                                                    <div class="card-body d-flex justify-content-center ">
+
+                                                        {{!---- modal button ----}}
+                                                        <div class="">
+                                                            <button href="#signin-modal" class="btn btn-info "
+                                                                data-toggle="modal"><i class="icon-user"></i>Add
+                                                                Address</button>
+                                                        </div>
+                                                        {{!---- modal button ends ----}}
+
+
+                                                    </div><!-- End .card-body -->
+                                                </div><!-- End .card-dashboard -->
+                                            </div><!-- End .col-lg-6 -->
+
+                                        </div><!-- End .row -->
+                                    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-account" role="tabpanel"
+                                        aria-labelledby="tab-account-link">
+                                        <form action="#">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Name </label>
+                                                    <input type="text" class="form-control" value="{{user.name}}">
+                                                </div><!-- End .col-sm-6 -->
+
+
+                                            </div><!-- End .row -->
+
+                                            <label>Phone No</label>
+                                            <input type="text" class="form-control" value="{{user.phone}}">
+
+                                            <label>Email address *</label>
+                                            <input type="text" class="form-control" value="{{user.email}}">
+
+
+
+
+
+                                            <button type="submit" data-toggle="modal"  href="#editPassword-modal" class="btn btn-outline-primary-2">
+                                                <span>Change Password</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                           
+
+                                        </form>
+                                    </div><!-- .End .tab-pane -->
+                                </div>
+                            </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                    height="25">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                    magna eros eu erat. </p>
+
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                            class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                                            class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                                            class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                                            class="icon-youtube"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                            class="icon-pinterest"></i></a>
+                                </div><!-- End .soial-icons -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <!-- End .footer-copyright -->
+                    <figure class="footer-payments">
+                        <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure><!-- End .footer-payments -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    <!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
+
+            <nav class="mobile-nav">
+                <ul class="mobile-menu">
+                    <li class="active">
+                        <a href="index.html">Home</a>
+
+                        <ul>
+                            <li><a href="index-1.html">01 - furniture store</a></li>
+                            <li><a href="index-2.html">02 - furniture store</a></li>
+                            <li><a href="index-3.html">03 - electronic store</a></li>
+                            <li><a href="index-4.html">04 - electronic store</a></li>
+                            <li><a href="index-5.html">05 - fashion store</a></li>
+                            <li><a href="index-6.html">06 - fashion store</a></li>
+                            <li><a href="index-7.html">07 - fashion store</a></li>
+                            <li><a href="index-8.html">08 - fashion store</a></li>
+                            <li><a href="index-9.html">09 - fashion store</a></li>
+                            <li><a href="index-10.html">10 - shoes store</a></li>
+                            <li><a href="index-11.html">11 - furniture simple store</a></li>
+                            <li><a href="index-12.html">12 - fashion simple store</a></li>
+                            <li><a href="index-13.html">13 - market</a></li>
+                            <li><a href="index-14.html">14 - market fullwidth</a></li>
+                            <li><a href="index-15.html">15 - lookbook 1</a></li>
+                            <li><a href="index-16.html">16 - lookbook 2</a></li>
+                            <li><a href="index-17.html">17 - fashion store</a></li>
+                            <li><a href="index-18.html">18 - fashion store (with sidebar)</a></li>
+                            <li><a href="index-19.html">19 - games store</a></li>
+                            <li><a href="index-20.html">20 - book store</a></li>
+                            <li><a href="index-21.html">21 - sport store</a></li>
+                            <li><a href="index-22.html">22 - tools store</a></li>
+                            <li><a href="index-23.html">23 - fashion left navigation store</a></li>
+                            <li><a href="index-24.html">24 - extreme sport store</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="category.html">Shop</a>
+                        <ul>
+                            <li><a href="category-list.html">Shop List</a></li>
+                            <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
+                            <li><a href="category.html">Shop Grid 3 Columns</a></li>
+                            <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
+                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span
+                                            class="tip tip-hot">Hot</span></span></a></li>
+                            <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
+                            <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
+                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span
+                                            class="tip tip-new">New</span></span></a></li>
+                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="wishlist.html">Wishlist</a></li>
+                            <li><a href="#">Lookbook</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="product.html" class="sf-with-ul">Product</a>
+                        <ul>
+                            <li><a href="product.html">Default</a></li>
+                            <li><a href="product-centered.html">Centered</a></li>
+                            <li><a href="product-extended.html"><span>Extended Info<span
+                                            class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-gallery.html">Gallery</a></li>
+                            <li><a href="product-sticky.html">Sticky Info</a></li>
+                            <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
+                            <li><a href="product-fullwidth.html">Full Width</a></li>
+                            <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Pages</a>
+                        <ul>
+                            <li>
+                                <a href="about.html">About</a>
+
+                                <ul>
+                                    <li><a href="about.html">About 01</a></li>
+                                    <li><a href="about-2.html">About 02</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact</a>
+
+                                <ul>
+                                    <li><a href="contact.html">Contact 01</a></li>
+                                    <li><a href="contact-2.html">Contact 02</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="404.html">Error 404</a></li>
+                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blog.html">Blog</a>
+
+                        <ul>
+                            <li><a href="blog.html">Classic</a></li>
+                            <li><a href="blog-listing.html">Listing</a></li>
+                            <li>
+                                <a href="#">Grid</a>
+                                <ul>
+                                    <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
+                                    <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
+                                    <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
+                                    <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Masonry</a>
+                                <ul>
+                                    <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
+                                    <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
+                                    <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
+                                    <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Mask</a>
+                                <ul>
+                                    <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
+                                    <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Single Post</a>
+                                <ul>
+                                    <li><a href="single.html">Default with sidebar</a></li>
+                                    <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
+                                    <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="elements-list.html">Elements</a>
+                        <ul>
+                            <li><a href="elements-products.html">Products</a></li>
+                            <li><a href="elements-typography.html">Typography</a></li>
+                            <li><a href="elements-titles.html">Titles</a></li>
+                            <li><a href="elements-banners.html">Banners</a></li>
+                            <li><a href="elements-product-category.html">Product Category</a></li>
+                            <li><a href="elements-video-banners.html">Video Banners</a></li>
+                            <li><a href="elements-buttons.html">Buttons</a></li>
+                            <li><a href="elements-accordions.html">Accordions</a></li>
+                            <li><a href="elements-tabs.html">Tabs</a></li>
+                            <li><a href="elements-testimonials.html">Testimonials</a></li>
+                            <li><a href="elements-blog-posts.html">Blog Posts</a></li>
+                            <li><a href="elements-portfolio.html">Portfolio</a></li>
+                            <li><a href="elements-cta.html">Call to Action</a></li>
+                            <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav><!-- End .mobile-nav -->
+
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->
+
+
+
+    {{!-- add address form modal starts here --}}
+
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-info" id="signin-tab" data-toggle="tab"
+                                        href="addAddress" role="tab" aria-controls="signin" aria-selected="true">Add
+                                        Address</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5"></div>
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                aria-labelledby="signin-tab">
+                                {{!-- modal form starts here --}}
+                                <form action="/addAddress" method="post">
+                                    <div class="row">
+                                        <div class="col-lg">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>First Name *</label>
+                                                    <input type="text" name="firstName" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Last Name *</label>
+                                                    <input type="text" name="lastName" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+
+
+                                            <label>Country *</label>
+                                            <input type="text" name="country" class="form-control" required>
+
+                                            <label>Street address *</label>
+                                            <input type="text" class="form-control" name="address"
+                                                placeholder="House number and Street name" required>
+                                            {{!-- <input type="text" class="form-control"
+                                                placeholder="Appartments, suite, unit etc ..." required> --}}
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Town / City *</label>
+                                                    <input type="text" class="form-control" name="city" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>State / County *</label>
+                                                    <input type="text" class="form-control" name="state" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Postcode / ZIP *</label>
+                                                    <input type="text" class="form-control" name="pincode" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Phone *</label>
+                                                    <input type="tel" class="form-control" name="phone" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <label>Email address *</label>
+                                            <input type="email" class="form-control" name="email" required>
+                                            <input type="text" name="userId" id="" value="{{usr}}" hidden>
+
+                                            <button type="submit"
+                                                class="btn btn-outline-primary-2 d-flex justify-content-center btn-order btn-block">
+                                                <span class="btn-text">Add your Address</span>
+                                                <span class="btn-hover-text">Submit Your Address</span>
+                                            </button>
+                                        </div><!-- End .col-lg-9 -->
+
+                                    </div><!-- End .row -->
+                                </form>
+                                {{!-- modal form ends here --}}
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+    </div>
+    {{!-- form modal ends here --}}
+
+    {{!-- edit address form modal starts here --}}
+
+    <div class="modal fade" id="edit-address" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-info" id="signin-tab" data-toggle="tab"
+                                        href="addAddress" role="tab" aria-controls="signin" aria-selected="true">Add
+                                        Address</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5"></div>
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                aria-labelledby="signin-tab">
+                                {{!-- modal form starts here --}}
+                                <form id="editAddress" >
+                                    <div class="row">
+                                        <div class="col-lg">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>First Name *</label>
+                                                    <input type="text" name="firstName" id="fname" class="form-control"
+                                                        required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Last Name *</label>
+                                                    <input type="text" name="lastName" id="lname" class="form-control"
+                                                        required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+
+
+                                            <label>Country *</label>
+                                            <input type="text" name="country" id="cntry" class="form-control" required>
+
+                                            <label>Street address *</label>
+                                            <input type="text" class="form-control" id="addrss" name="address"
+                                                placeholder="House number and Street name" required>
+                                            {{!-- <input type="text" class="form-control"
+                                                placeholder="Appartments, suite, unit etc ..." required> --}}
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Town / City *</label>
+                                                    <input type="text" class="form-control" id="town" name="city"
+                                                        required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>State / County *</label>
+                                                    <input type="text" class="form-control" id="stte" name="state"
+                                                        required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Postcode / ZIP *</label>
+                                                    <input type="text" class="form-control" id="zip" name="pincode"
+                                                        required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Phone *</label>
+                                                    <input type="tel" class="form-control" id="mobile" name="phone"
+                                                        required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <label>Email address *</label>
+                                            <input type="email" class="form-control" id="mail" name="email" required>
+                                            <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+                                             <input type="text" name="addressId" id="addressId" value=""hidden>
+
+                                            <button type="submit"
+                                                class="btn btn-outline-primary-2 d-flex justify-content-center btn-order btn-block">
+                                                <span class="btn-text">Edit your Address</span>
+                                                <span class="btn-hover-text">Submit Your Address</span>
+                                            </button>
+                                        </div><!-- End .col-lg-9 -->
+
+                                    </div><!-- End .row -->
+                                </form>
+                                {{!-- modal form ends here --}}
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+
+    {{!-- edit address modal ends here --}}
+
+     {{!-- edit password form modal starts here --}}
+
+    <div class="modal fade" id="editPassword-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-info" id="signin-tab" data-toggle="tab"
+                                        href="addAddress" role="tab" aria-controls="signin" aria-selected="true">Edit Password</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5"></div>
+                            <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                aria-labelledby="signin-tab">
+                                {{!-- modal form starts here --}}
+                                <form id="userDetails">
+                                    <div class="row">
+                                        
+                                        <div class="col-lg">
+                                            <div class="text-center">
+                                                <b id="reg-error" style="color: red;"></b>
+                                            </div>
+                                            <div class="">
+                                                <div class="col">
+                                                    <label>Current Password *</label>
+                                                    <input type="text" name="oldPassword" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                                <br>
+
+                                                <div class="col">
+                                                    <label>New Password *</label>
+                                                    <input type="text" name="newPassword" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+                                            <br>
+
+                                             <div class="col">
+                                                    <label>Re New Password *</label>
+                                                    <input type="text" name="rePassword" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                           
+
+
+                                          
+                                            <input type="text" name="userId" id="" value="{{usr}}" hidden>
+
+                                            <button type="submit"
+                                                class="btn btn-outline-primary-2 d-flex justify-content-center btn-order btn-block">
+                                                <span class="btn-text">Change Password</span>
+                                                <span class="btn-hover-text">Submit Your Password</span>
+                                            </button>
+                                        </div><!-- End .col-lg-9 -->
+
+                                    </div><!-- End .row -->
+                                </form>
+                                {{!-- modal form ends here --}}
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+    </div>
+    {{!-- edit password form modal ends here --}}
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+
+
+        function deleteAddress(addressId) {
+             
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to delete your Address!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '/delete-address/' + addressId,
+                            method: 'delete',
+                            success: (response) => {
+                                swal({
+                                    text: "The selected Product is Deleted!",
+                                    icon: 'success'
+                                })
+                                location.href = '/my-account'
+                            }
+                        })
+                    } else {
+                        swal({ text: "Your Address is not Deleted!" })
+                    }
+
+
+                });
+        }
+    </script>
+    {{!--============= fetching address to form ================--}}
+    <script>
+        function getAddress(addressId) {
+            $.ajax({
+                url: '/get-address/' + addressId,
+                method: 'get',
+                success: (response) => {
+                    console.log(response)
+                    document.getElementById("fname").value = response.firstName
+                    document.getElementById("lname").value = response.lastName
+                    document.getElementById("cntry").value = response.country
+                    document.getElementById("addrss").value = response.address
+                    document.getElementById("town").value = response.city
+                    document.getElementById("stte").value = response.state
+                    document.getElementById("zip").value = response.pincode
+                    document.getElementById("mobile").value = response.phone
+                    document.getElementById("mail").value = response.email
+                    document.getElementById('addressId').value= response._id
+                }
+            })
+        }
+    </script>
+    <script>
+       
+
+
+        $("#editAddress").submit((e) => {
+            
+            e.preventDefault()
+            $.ajax({
+                url: '/edit-address-details',
+                method: 'post',
+                data: $("#editAddress").serialize(),
+                success: (response) => {
+                    if(response.status){
+                        location.reload()
+                    }
+
+                }
+            })
+        })
+
+
+    </script>
+
+    
+        <script>
+            
+            
+         $('#userDetails').submit((e) => {
+		e.preventDefault();
+        $.ajax({
+            url: "/edit-password",
+            method :'post',
+            data: $("#userDetails").serialize(),
+            success:(response)=>{
+                console.log(response)
+                if (response.status) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Password Changed',
+							text: ' Your Password Has Been Changed Succesfully !!',
+							
+						})   
+                        setTimeout(function(){ window. location. reload(); }, 3000);     
+                }
+                else{
+                    document.getElementById("reg-error").innerHTML = response.message;
+						status = response.message;
+                }
+            }
+        }
+          
+        )
+         })
+    </script>
+
+    
+
+    <script>
+        function ShowAndHide() {
+        let status= document.getElementById('SectionName').style.display
+        console.log(status)
+        if(status == 'none'){
+         document.getElementById('SectionName').style.display  = 'block'
+        }else{
+         document.getElementById('SectionName').style.display = 'none'
+        }
+        }
+    </script>
+   
+        <script>
+        function myFunction() {
+
+        var copyText = document.getElementById("refCode")
+        copyText.select();
+       copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+        Swal.fire({
+            icon: 'success',
+            title: 'Copied to Clipboard',
+        })
+
+    }
+</script>
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+
+
+
+<!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+
+</html>

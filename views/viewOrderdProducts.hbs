@@ -1,0 +1,479 @@
+<style>
+	.cursor-pointer {
+		cursor: pointer;
+	}
+
+	a {
+		text-decoration: none !important;
+		color: #ffffff !important;
+	}
+
+	.bold {
+		font-weight: 600;
+	}
+
+	.small {
+		font-size: 12px !important;
+		letter-spacing: 0.5px !important;
+	}
+
+	.Today {
+		color: rgb(83, 83, 83);
+	}
+
+	.btn-outline-primary {
+		background-color: #fff !important;
+		color: #4bb8a9 !important;
+		border: 1.3px solid #4bb8a9;
+		font-size: 12px;
+		border-radius: 0.4em !important;
+	}
+
+	.btn-outline-primary:hover {
+		background-color: #4bb8a9 !important;
+		color: #fff !important;
+		border: 1.px solid #4bb8a9;
+	}
+
+	.btn-outline-primary:focus,
+	.btn-outline-primary:active {
+		outline: none !important;
+		box-shadow: none !important;
+		border-color: #42A5F5 !important;
+	}
+
+	#progressbar {
+		margin-bottom: 30px;
+		overflow: hidden;
+		color: #455A64;
+		padding-left: 0px;
+		margin-top: 30px
+	}
+
+	#progressbar li {
+		list-style-type: none;
+		font-size: 13px;
+		width: 33.33%;
+		float: left;
+		position: relative;
+		font-weight: 400;
+		color: #455A64 !important;
+
+	}
+
+	#progressbar #step1:before {
+		content: "1";
+		color: #fff;
+		width: 29px;
+		margin-left: 15px !important;
+		padding-left: 11px !important;
+	}
+
+
+	#progressbar #step2:before {
+		content: "2";
+		color: #fff;
+		width: 29px;
+
+	}
+
+	#progressbar #step3:before {
+		content: "3";
+		color: #fff;
+		width: 29px;
+		margin-right: 15px !important;
+		padding-right: 11px !important;
+	}
+
+	#progressbar li:before {
+		line-height: 29px;
+		display: block;
+		font-size: 12px;
+		background: #455A64;
+		border-radius: 50%;
+		margin: auto;
+	}
+
+	#progressbar li:after {
+		content: '';
+		width: 121%;
+		height: 2px;
+		background: #455A64;
+		position: absolute;
+		left: 0%;
+		right: 0%;
+		top: 15px;
+		z-index: -1;
+	}
+
+	#progressbar li:nth-child(2):after {
+		left: 50%;
+	}
+
+	#progressbar li:nth-child(1):after {
+		left: 25%;
+		width: 121%;
+	}
+
+	#progressbar li:nth-child(3):after {
+		left: 25% !important;
+		width: 50% !important;
+	}
+
+	#progressbar li.active:before,
+	#progressbar li.active:after {
+		background: #4bb8a9;
+	}
+
+	.card {
+		background-color: #fff;
+		box-shadow: 2px 4px 15px 0px rgb(0, 108, 170);
+		z-index: 0;
+	}
+
+	small {
+		font-size: 12px !important;
+	}
+
+	.a {
+		justify-content: space-between !important;
+	}
+
+	.border-line {
+		border-right: 1px solid rgb(226, 206, 226)
+	}
+
+	.card-footer img {
+		opacity: 0.3;
+	}
+
+	.card-footer h5 {
+		font-size: 1.1em;
+		color: #8C9EFF;
+		cursor: pointer;
+	}
+</style>
+
+<main class="" id="main">
+
+	<div class="page-wrapper">
+
+
+
+		<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+			<div class="container">
+				<h1 class="page-title">Orderd Products<span>Shop</span></h1>
+			</div><!-- End .container -->
+		</div><!-- End .page-header -->
+
+		<hr><br>
+
+
+		{{!-- <div class="container">
+			</h2><!-- End .title -->
+			{{#each products}}
+			<div class="cta cta-border mb-5">
+				<div class="row justify-content-center">
+					<div class="col-md-11 col-xl-10">
+						<div class="cta-content">
+							<div class="cta-heading"><img style="height: 100px;"
+									src="/pictures/product-images/{{this.product.img.[0]}}">
+								<p class=" ">{{this.product.name}}</p><!-- End .cta-title -->
+							</div><!-- End .cta-heading -->
+
+							<div class="cta-text text-center">
+								<b>Quantity : {{this.quantity}}</b><br>
+								<b>price : {{this.product.price}}</b><br>
+								<b style="color: green;">offerPrice:{{this.offerPrice}}</b><br>
+
+								<b>Status:{{this.status}}</b><br>
+								date:{{date}}
+							</div><!-- End .cta-text -->
+							<div class="cta-text">
+
+							</div><!-- End .cta-text -->
+							{{#if (isDelivered this.status)}}
+							<p class="text-Success">Delivered</p>
+							{{else}}
+
+
+							{{#if (isCanceled this.status)}}
+							<p class="text-danger">Canceled</p>
+							{{else}}
+							<a onclick="updateStatus('{{this._id}}','{{this.product._id}}')"
+								class="btn text-white btn-danger btn-rounded"><span>Cancel</span></a>
+							{{/if}}
+							{{/if}}
+
+
+
+
+
+
+						</div><!-- End .cta-content -->
+
+
+					</div><!-- End .col-xl-7 -->
+
+
+				</div><!-- End .row -->
+
+
+			</div><!-- End .cta -->
+
+
+
+
+
+			{{/each}}
+
+
+		</div><!-- End .container --> --}}
+
+
+	</div>
+	{{#each products}}
+	<div class="container-fluid my-5 d-sm-flex justify-content-center">
+		<div class="card px-2">
+			<div class="card-header bg-white">
+				<div class="row justify-content-between">
+					<div class="col">
+						<p class="text-muted"> Product ID <span class="font-weight-bold text-dark">{{this._id}}</span>
+						</p>
+						<p class="text-muted"> Place On <span class="font-weight-italic text-info">{{this.date}}</span>
+						</p>
+					</div>
+					<div class="flex-col my-auto">
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="card-body ">
+				<div class="media flex-column flex-sm-row">
+					<div class="media-body ">
+						<h5 class="bold">{{this.product.name}}</h5>
+						<p class="text-muted"> Qt: {{this.quantity}} Pair</p>
+						<h4 class="mt-3 mb-4 bold"> <span class="mt-5">&#x20B9;</span> {{this.product.price}} <span
+								class="small text-muted"> via ({{this.paymentMethod}}) </span></h4>
+						<h4 class="mt-3 text-success mb-4 bold"> <span class="mt-5">&#x20B9;</span> {{this.offerPrice}}
+							<span class="small text-muted"> via ({{this.paymentMethod}}) </span>
+						</h4>
+
+					</div>
+					<div class="col-lg-6">
+						<img class="align-self-center img-fluid" src="/pictures/product-images/{{this.product.img.[0]}}"
+							width="180 " height="180">
+					</div>
+				</div>
+				{{#if (isDelivered this.status)}}
+					<a class="btn btn-info" href="/request-page/{{this.product._id}}/{{this._id}}">Request Return</a>
+					
+				{{else}}
+				{{#if (returnRequest this.status)}}
+				<h6 style="color: #007c46;">Return Requested</h6>
+				{{else}}
+				{{#if (isCanceled this.status)}}
+				<h6 class="text-danger">Canceled</h6>
+				{{else}}
+				<a onclick="updateStatus('{{this._id}}','{{this.product._id}}')"
+					class="btn text-white btn-danger btn-rounded"><span>Cancel</span></a>
+				{{/if}}
+				{{/if}}
+				{{/if}}
+			</div>
+
+			{{!-- ------------------------ --}}
+			<section class="h-100 gradient-custom">
+				<div class="container py-5 h-50">
+					<div class="row d-flex justify-content-center align-items-center h-100">
+						<div class="col-lg-10 col-xl-8">
+
+
+
+
+
+							<div class="card-body">
+
+								<hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+								<div class="text-center">
+
+									<b class="">Track Order</b>
+
+									<div class="col-md-10">
+										<div class="progress mt-5" style="height: 6px; border-radius: 16px;">
+											{{#if (placedOrder this.status)}}
+											<div class="progress-bar" role="progressbar"
+												style="width: 15%; border-radius: 16px; background-color: #50addc;"
+												aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										{{/if}}
+
+										{{#if (dispatchOrder this.status)}}
+										<div class="progress-bar" role="progressbar"
+											style="width: 30%; border-radius: 16px; background-color: #0b8aa7;"
+											aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+									{{/if}}
+									{{#if (shippedOrder this.status)}}
+									<div class="progress-bar" role="progressbar"
+										style="width: 60%; border-radius: 16px; background-color: #0b8aa7;"
+										aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								{{/if}}
+								{{#if (deliveredOrder this.status)}}
+								<div class="progress-bar" role="progressbar"
+									style="width: 80%; border-radius: 16px; background-color: #007c46;"
+									aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							{{/if}}
+							{{#if (cancelOrder this.status)}}
+							<div class="progress-bar" role="progressbar"
+								style="width: 100%; border-radius: 16px; background-color: #b50000;" aria-valuenow="100"
+								aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+						{{/if}}
+						{{#if (returnRequested this.status)}}
+							<div class="progress-bar" role="progressbar"
+								style="width: 80%; border-radius: 16px; background-color: #008c23;" aria-valuenow="80"
+								aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+						{{/if}}
+
+						<div class="d-flex justify-content-around mb-1">
+
+							{{#if (cancelOrder this.status)}}
+							<p class="text-muted mt-1 mb-0 small ms-xl-5">Canceled</p>
+
+							{{else}}
+							<p class="text-muted mt-1 mb-0 small ms-xl-5">Placed</p>
+							<p class="text-muted mt-1 mb-0 small ms-xl-5">Dispatched</p>
+							<p class="text-muted mt-1 mb-0 small ms-xl-5">Shipped</p>
+							<p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
+							<p class="text-muted mt-1 mb-0 small ms-xl-5">Returned</p>
+							{{/if}}
+
+
+						</div>
+					</div>
+
+				</div>
+		</div>
+
+
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+
+	{{!-- ------------------------ --}}
+
+{{!-- demo===============---------------------------------------- --}}
+         {{!-- <div class="card col-md-12 mb-5 mt-4">
+                <div class="card-body rounded">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mt-1">
+                                <img class="rounded" src="/pictures/productImages/puma analog1.jpg-1669031776024" alt="" style="height: 180px;">
+                            </div>
+                            <small>6399b2c1c4f7b429c232c61b</small>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="mt-3">ADIDAS</h5>
+                            <h6>ANALOGUE</h6>
+                            <b>PUMA Ultrafresh Analog Black Dial Women's Watch-P1064</b><br>
+                        </div>
+                        <div class="col-md-3">
+                            <h6 class="mt-5">Quantity:&nbsp;1</h6>
+                            <input type="text" name="" id="quantityIn" value="1" hidden="">
+                            <span>
+                                <s>₹ 4750</s>
+                                <h5 class="">₹ <span class="text-danger">3800</span></h5>
+                            </span>
+                            <b>TRACK ORDER</b>
+                            <h6 class="text-danger">Deliverd</h6>
+                        </div>
+                        <div class="col-md-3">
+                            <a type="submit" class="btn btn-primary mt-5" href="/returnOrder/637b67602a100db57f2df2b5/6399b2c1c4f7b429c232c61b">Request Return</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="tracking">
+                        <div class="title">Tracking Order</div>
+                    </div>
+                    <div class="progress-track">
+                        <ul id="progressbar">
+                             <li class="step0 active  " id="step1">Ordered</li>
+                            <li class="step0  text-center active" id="step2">Shipped</li>
+                            <li class="step0  text-right active" id="step3">Delivered</li>
+                            <li class="step0 text-right" id="step4">Return</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div> --}}
+
+{{!-- demo--==================================------------------ --}}
+	</div>
+	</div>
+	{{/each}}
+	<div>
+		<p>
+
+		</p> <br><br>
+		<p></p>
+	</div>
+</main>
+<script>
+	function updateStatus(orderId, proId) {
+		
+		$.ajax({
+			url: '/update-status',
+			method: 'post',
+			data: {
+
+				orderId: orderId,
+				proId: proId
+
+			},
+			success: (response) => {
+				
+		
+				if (response.status) {
+					
+					console.log(response)
+					location.reload()
+				}
+
+			}
+		})
+	}
+</script>
+
+<script>
+	function returnRequest(orderId, proId) {
+		$.ajax({
+			url: '/update-return-request',
+			method: 'post',
+			data: {
+
+				orderId: orderId,
+				proId: proId
+
+			},
+			success: (response) => {
+
+					location.href= '/return-page'
+				
+
+			}
+		})
+	}
+</script>
+
+

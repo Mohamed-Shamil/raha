@@ -1,0 +1,86 @@
+<div class="page-header text-center" style="background-image: url('/userAssets/images/page-header-bg.jpg')">
+    <div class="container">
+        <h1 class="page-title"> Return Order<span>RAHA</span></h1>
+        <div class="row mt-5">
+            {{#each prod}}
+            <div class="col-md-4">
+                <img style="height:300px ;" src="/pictures/product-images/{{this.product.img.[0]}}" alt="" class="m-5">
+            </div>
+
+            <div class="col-md-4 mt-2">
+                <p>Quantity : <b>{{quantity}}</b></p>
+                <p>Amount Paid: <b> Rs{{price}}</b></p><br>
+                <h6>Deliver To : </h6>
+                <b class="text-warning">{{product.name}}</b>
+                            {{/each}}
+
+                <p>{{order.deliveryDetails.address}},<br>
+                    {{order.deliveryDetails.city}}
+                    {{order.deliveryDetails.state}} <br>
+                    {{order.deliveryDetails.pincode}}</p>
+            </div>
+            <div class="col-md-4">
+                <form id="returnForm">
+                    <div class="d-flex">
+                        <div>Reason for Returning</div> &nbsp;<input type="text" id="reason" name="reason" class="form-control">
+                    </div>
+                    <div class="d-flex mt-5">
+                        <div>Description </div>&nbsp;&nbsp; <textarea id="freeform" name="freeform" rows="4"
+                            cols="90"></textarea>
+                    </div>
+                    
+                    <div>
+                        <button class="btn btn-primary rounded" onclick="reqeustReturn('{{productid.item}}','{{order._id}}')" type="submit">submit </button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    
+    </div>
+</div><!-- End .container -->
+</div>
+
+
+<script>
+       
+        function reqeustReturn(proId,orderId){
+           console.log(proId)
+            
+            let reason = document.getElementById('reason').value
+            let freeform = document.getElementById('freeform').value
+           
+
+          
+            $.ajax({
+                url:'/update-return-request',
+                data:{
+                    reason,
+                    freeform,
+                    proId,
+                    orderId,  
+                },
+                method:'post',
+                success:(response)=>{
+
+                  
+                   window.location.href = '/view-ordered-products/'+orderId
+                }
+            })
+        }
+
+ </script>
+
+ {{!-- <script> $.ajax({
+            
+            url: '/update-return-request',
+            data: 
+            method: 'post',
+            success: (response) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Return Requsted',
+                    text: 'Your request for return is submitted!'
+                })
+            }
+        })</script>        --}}
