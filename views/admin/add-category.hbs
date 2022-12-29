@@ -130,6 +130,10 @@
   <!-- Template Main JS File -->
   <script src="/admin-assets/js/main.js"></script>
 
+{{!-- else if(image = "No file chosen"){
+      document.getElementById("imageValidate").innerHTML = "Image should be Added"
+      return false
+    } --}}
 
   <script>
    function addCategoryValidate(){
@@ -144,12 +148,10 @@
     }else if( discription== "" || discription.trim()== ""){
       document.getElementById('discriptionValidate').innerHTML = "Discription Must be Filled"
       return false
-    }else if(image = "No file chosen"){
-      document.getElementById("imageValidate").innerHTML = "Image should be Added"
-      return false
     }
      
 }
+
 
 </script>
 
