@@ -4,7 +4,7 @@ const state ={
 }
 
 module.exports.connect= (done)=>{
-    const url = 'mongodb://localhost:27017'
+    const url = 'mongodb+srv://shamil:mohamedsha@cluster0.3inwcui.mongodb.net/test'
     const dbname = 'ecommerce'
 
 
