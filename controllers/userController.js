@@ -3,6 +3,14 @@ var db = require('../config/connection')
 const productHelpers = require('../helpers/product-helpers')
 const {upload} = require("../public/javascripts/fileUpload")
 const userHelpers = require("../helpers/user-helpers")
+const adminHelpers = require('../helpers/admin-helpers');
+
+const admin = {
+    email: 'admin@gmail.com',
+    password : 12345
+   
+  }
+  
 
 module.exports= { 
 

@@ -26,11 +26,6 @@ module.exports= {
     
 
     productHelpers.addProducts(product).then((id)=>{
-      swal.fire({
-        title: 'Success!',
-        text: 'Your form has been submitted successfully.',
-        icon: 'success',
-      });
         console.log(req.body);
         res.redirect('/admin/addproducts')
 

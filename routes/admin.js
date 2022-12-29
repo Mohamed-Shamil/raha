@@ -20,7 +20,7 @@ const {order} = require('paypal-rest-sdk');
 const { viewOrderdProducts, updateStatus, returnOrder } = require('../helpers/order-helpers');
 const { addOffer, addCoupons, deleteCoupon } = require('../helpers/admin-helpers');
 
-const admin ={
+const admin = {
   email: 'admin@gmail.com',
   password : 12345
  
