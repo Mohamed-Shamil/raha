@@ -121,7 +121,7 @@ router.get('/product/:id',async(req,res)=>{
     let userLogin =  req.session.user
 
     page.total=await productHelpers.getCountProducts()
-    page.perpage=2
+    page.perpage=3
     page.pages=Math.ceil(page.total/page.perpage)
     page.pageno=(req.query.page==null)?1:parseInt(req.query.page)
     page.startFrom=(page.pageno -1)*page.perpage
