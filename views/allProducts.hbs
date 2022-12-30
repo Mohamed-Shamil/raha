@@ -832,5 +832,41 @@
     <script src="assets/js/nouislider.min.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+
+	<script>
+		function addToCart(proId) {
+    $.ajax({
+        url: '/add-to-cart/' + proId,
+        method: 'get',
+        success:(response) => {
+            if(response.status){
+                let count = $('#cart-count').html()
+                count = parseInt(count)+1
+                $("#cart-count").html(count)
+            }
+            document.getElementById(cartId).style.display = 'none'
+        }
+    })
+    .then((response)=>{
+        if(response.status){  swal({
+        title: "Success!",
+        text: "You added product to the cart!",
+        icon: "success",
+    })}else{
+        swal(
+           {title: "Sorry!",
+           text:"You have to SignIn!",
+        
+        } 
+        )
+    }
+     
+           
+        
+    })
+    
+}
+	</script>
+
 </body>
 

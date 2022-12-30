@@ -476,4 +476,38 @@ router.get('/get-address/:id',async(req,res)=>{
     res.json(response)
   })
 })
+
+router.get('/forgor-password',(req,res)=>{
+  res.render('forgetPassword',{userlayout:true})
+})
+
+router.post("/sendotp", (req, res) => {
+  userHelpers.otpUserVerify(req.body).then((response)=>{
+    if(response.status){
+      phone_no = parseInt(req.body.phone)
+    
+      client.verify
+      .services('VA596b689b357641ce139d77f00b7b670e') // Change service ID
+        .verifications.create({
+          to: `+91${req.body.phone}`,
+          channel:  "sms",
+        })
+        .then((data) => {
+         
+            req.session.user=response.user
+            req.session.loggedIn=true
+              res.redirect('/verifyOtp')
+  
+        });
+    }else{
+      
+    
+      res.redirect('/otpLogin')
+  
+    }
+  
+  })
+    
+   
+    });
 module.exports = router;
