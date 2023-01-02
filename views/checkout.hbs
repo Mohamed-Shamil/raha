@@ -298,7 +298,7 @@
 
                                             <tr class="summary-subtotal">
                                                 <td>Subtotal:</td>
-                                                <td>${{total}}</td>
+                                                <td>₹{{total}}</td>
                                             </tr><!-- End .summary-subtotal -->
                                             <tr>
                                                 <td>Shipping:</td>
@@ -307,7 +307,7 @@
                                             <tr class="summary-total">
                                                 <td>Total:</td>
                                                 <input id="total" value="{{total}}" hidden>
-                                                <td id="showTotal" value="">${{total}}</td>
+                                                <td id="showTotal" value="">₹{{total}}</td>
                                                 <input id="newTotal" name="newTotal" value="" hidden>
                                                 <input id="walletBalance"  value="{{wallet.balance}}" hidden>
 
@@ -613,6 +613,7 @@
             }
         };
         var rzp1 = new Razorpay(options);
+        //rzp1.on("payment.failed",)
         rzp1.open();
     }
 

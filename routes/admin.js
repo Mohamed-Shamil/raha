@@ -26,8 +26,16 @@ const admin = {
  
 }
 
-//<-------------------admin home------------------------>
-router.get('/',adminIndex);
+const verifyadmin = (req,res,next)=>{
+  console.log(`${req.method} request made to ${req.url}`);
+  if(req.session.adminLogin){
+    next()
+  }else{
+    res.redirect('/admin')
+  }
+}
+
+
 
 //<----------------------admin Login------------------->
 router.post('/adminlogin',adminLogin)
@@ -35,21 +43,25 @@ router.post('/adminlogin',adminLogin)
 //<-----------------------admin Logout--------------------->
 router.get('/admin-logout',adminLogout)
 
+
+//<-------------------admin home------------------------>
+router.get('/',adminIndex);
+
 //<---------------------view User---------------------------->
-router.get('/viewuser',viewUser)
+router.get('/viewuser',verifyadmin,viewUser)
 
 router.route('/addproducts').
 // <------------------------addproducts----------------------->
-get(addproducts)
+get(verifyadmin,addproducts)
 // <--------------------add Products Post--------------------->
 .post(upload.array('images'),addproductpost)
 
 //<------------------------view Products---------------------->
-router.get('/viewproducts',viewProducts)
+router.get('/viewproducts',verifyadmin,viewProducts)
  
 router.route('/addcategory')
 //<------------------Add Category---------------------------->
-.get(addCategory)
+.get(verifyadmin,addCategory)
 //<--------------------Add Category Post--------------------->
 .post(upload2.any('images'),addCategoryPost)
 
@@ -57,7 +69,7 @@ router.route('/addcategory')
 router.post('/addbanner',upload3.any('images'),addBanner)
 
 //<------------------------Edit Products---------------------->
-router.get('/editproduct/:id',editProduct)
+router.get('/editproduct/:id',verifyadmin,editProduct)
 //<------------------------Edit Products post---------------------->
 router.post('/editproducts/:id',upload.array('images'),editProductPost)
 
@@ -65,71 +77,71 @@ router.post('/editproducts/:id',upload.array('images'),editProductPost)
 router.delete('/deleteproduct/:id',deleteProduct)
 
 // <---------------------view Categories-------------------->
-router.get('/viewcategory',viewCategories)
+router.get('/viewcategory',verifyadmin,viewCategories)
 
 //<------------------------delete category---------------------->
 router.delete('/deletecategory/:id',deleteCategory)
 
 //<------------------------edit category---------------------->
-router.get('/editcategory/:id',editCategory)
+router.get('/editcategory/:id',verifyadmin,editCategory)
 
 //<------------------------delete category post---------------------->
 router.post('/editcategory/:id',upload2.any('images'),editCategoryPost)
 
 //<------------------------user Block---------------------->
-router.get('/block/:id/:status',userBlock)
+router.get('/block/:id/:status',verifyadmin,userBlock)
 
 //<------------------------user Unblock---------------------->
-router.get('/unblock/:id',userUnblock)
+router.get('/unblock/:id',verifyadmin,userUnblock)
 
 //<------------------------ add Banner page---------------------->
-router.get('/add-banner',banner)
+router.get('/add-banner',verifyadmin,banner)
 
 //<------------------------ view Banner page---------------------->
-router.get('/view-banners',viewBanner)
+router.get('/view-banners',verifyadmin,viewBanner)
 
 //<------------------------ delete Banner ---------------------->
-router.delete('/deletebanner/:id',deleteBanner)
+router.delete('/deletebanner/:id',verifyadmin,deleteBanner)
 
 //<------------------------ view Order ---------------------->
-router.get('/order',viewOrder)
+router.get('/order',verifyadmin,viewOrder)
 
 //<------------------------ view Order products---------------------->
-router.get('/viewOrderProducts/:id',viewOrderProducts)
+router.get('/viewOrderProducts/:id',verifyadmin,viewOrderProducts)
 
 //<------------------------ update Status---------------------->
 router.post('/update-status',updateStatus)
 
 //<-----------------------------sales page------------------------>
-router.get('/sales',sales)
+router.get('/sales',verifyadmin,sales)
 
 //<---------------edit Banner----------------------------------->
-router.get('/edit-banner/:id',editBanner)
+router.get('/edit-banner/:id',verifyadmin,editBanner)
 
 //<----------------------------offer Page------------------------>
-router.get('/offer',offer)
+router.get('/offer',verifyadmin,offer)
 
 //<-----------------------add Offer---------------------------->
 router.post('/add-offer',addOffer)
 
 //<-----------------------add coupon---------------------------->
-router.get('/add-coupon',addCouponPage)
+router.get('/add-coupon',verifyadmin,addCouponPage)
 
 //<---------------------------add Coupon Post------------------->
 router.post('/addcoupon',addCouponPost)
 
 //<---------------------------view Coupon ------------------->
-router.get('/view-coupons',viewCoupon)
+router.get('/view-coupons',verifyadmin,viewCoupon)
 
 //<---------------------------delete Coupon ------------------->
 router.delete('/deleteCoupon/:id',deleteCoupon)
 
 //<---------------------------edit Coupon ------------------->
-router.get('/editCoupon/:id',editCoupon)
+router.get('/editCoupon/:id',verifyadmin,editCoupon)
 
 //<---------------------------edit Coupon Post------------------->
-router.post('/editcoupon',editCouponPost)
+router.post('/editcoupon',verifyadmin,editCouponPost)
 
 //<-----------------------return Order---------------------------->
-router.get('/return-order',returnOrder)
+router.get('/return-order',verifyadmin,returnOrder)
 module.exports = router;

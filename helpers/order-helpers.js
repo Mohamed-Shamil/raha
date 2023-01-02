@@ -69,8 +69,6 @@ module.exports = {
                      }
                 }
             ]).toArray()
-            console.log("dddddddddddddddddddddddddddddddddddddddddddddd");
-            console.log(orderItems);
             resolve(orderItems)
             
         })
@@ -198,7 +196,7 @@ module.exports = {
                      let  pay = orderData.paymentMethod
                      
                       if(pay!='COD'){
-                        console.log("razorpayyyyyyyyyyyyyyyyy");
+                       
                         let orderitems = await   db.get().collection(collection.ORDER_COLLECTION).aggregate([
                             {
                                 $match: {_id:objectId(details.orderId)}
@@ -387,8 +385,6 @@ module.exports = {
                 }
 
             ]).toArray()
-            console.log(order);
-            console.log("orderehelperslek vaadaaaaaaaaaaaaaaaaaaaaaaa");
 
             resolve(order)
            

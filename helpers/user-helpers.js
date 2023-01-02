@@ -617,10 +617,10 @@ blockUser: (userId,status) => {
             db.get().collection(collection.ORDER_COLLECTION)
                 .updateOne({ _id: objectId(orderId) }, {
                     $set: {
-                        status: 'Placed'
+                        "products.$.trackOrder": 'placed'
                     }
                 }).then(() => {
-
+                    console.log("orderID is here");
                     resolve()
                 }).catch((err) => {
                     console.log(err)

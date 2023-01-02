@@ -254,6 +254,7 @@ router.post('/change-product-quantity',(req,res)=>{
   })
 })
 
+// router.use(verifyLogin)>>>>>>....
 router.post('/remove-product',(req,res)=>{
   userHelpers.removeProduct(req.body).then((response)=>{
     res.json(response)

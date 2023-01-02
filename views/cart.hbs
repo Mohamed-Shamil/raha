@@ -51,7 +51,7 @@
                                                 </h3><!-- End .product-title -->
                                             </div><!-- End .product -->
                                         </td>
-                                        <td  class="price-col">${{this.product.price}}</td>
+                                        <td  class="price-col">₹{{this.product.price}}</td>
                                       
                                         
 
@@ -108,14 +108,14 @@
                                     <tbody>
                                         <tr class="summary-subtotal">
                                             <td>Subtotal:</td>
-                                            <td><span id="total">${{totalValue}}</span></td>
+                                            <td><span id="total">₹{{totalValue}}</span></td>
                                         </tr><!-- End .summary-subtotal -->
                                         <tr class="summary-shipping">
                                             <td>Shipping:</td>
                                             <td>&nbsp;</td>
                                         </tr>
 
-                                        <tr class="summary-shipping-row">
+                                        {{!-- <tr class="summary-shipping-row">
                                             <td>
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" id="free-shipping" name="shipping"
@@ -124,14 +124,14 @@
                                                         Shipping</label>
                                                 </div><!-- End .custom-control -->
                                             </td>
-                                            <td>$0.00</td>
-                                        </tr><!-- End .summary-shipping-row -->
+                                            <td>₹0.00</td>
+                                        </tr><!-- End .summary-shipping-row --> --}}
 
                                         <hr>
 
                                         <tr class="summary-total">
                                             <td>Total:</td>
-                                            <td><span id="total">${{totalValue}}</span></td>
+                                            <td><span id="total">₹{{totalValue}}</span></td>
                                         </tr><!-- End .summary-total -->
                                     </tbody>
                                 </table><!-- End .table table-summary -->

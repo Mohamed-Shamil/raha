@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="/admin-assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,14 +44,14 @@
 
 <body>
 
-  
 
-   
-        <main id="main" class="main">
+
+
+  <main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Add Products</h1>
-     
+
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -58,13 +60,14 @@
 
           <div class="card">
             <div class="card-body">
-             
+
 
               <!-- General Form Elements -->
-              <form action="/admin/addproducts" method="POST"  name="addProductForm" onsubmit="return addProductValidate()" enctype="multipart/form-data">
-               
+              <form action="/admin/addproducts" method="POST" name="addProductForm"
+                onsubmit="return addProductValidate()" enctype="multipart/form-data">
+
                 <div class="row mb-3">
-                  <label for="inputText" >Product Name</label>
+                  <label for="inputText">Product Name</label>
                   <div class="col-sm-10">
                     <input type="text" name="name" class="form-control">
                     <label class="text-danger" id="productValidate"></label>
@@ -75,22 +78,22 @@
                   <label for="inputNumber" class=" col-form-label">Price</label>
                   <div class="col-sm-10">
                     <input type="number" name="price" id="price" class="form-control">
-                    <label id="priceValidated"  class="text-danger"></label>
+                    <label id="priceValidated" class="text-danger"></label>
                   </div>
                 </div>
-                  
-                 <div class="row mb-3">
+
+                <div class="row mb-3">
                   <label class=" col-form-label">Category</label>
                   <label id="categoryValidate"></label>
                   <div class="col-sm-10">
-                    
+
                     <select class="form-select" name="category" aria-label="Default select example">
                       {{#each category}}
-                      <option value ="{{this.categoryName}}"  selected>{{this.categoryName}}</option>
-                     {{/each}}
+                      <option value="{{this.categoryName}}" selected>{{this.categoryName}}</option>
+                      {{/each}}
                     </select>
-                    
-                  </div>  
+
+                  </div>
                 </div>
 
                 <div class="row mb-3">
@@ -100,85 +103,85 @@
                     <label id="stockValidate" class="text-danger"></label>
                   </div>
                 </div>
-                
-               
 
-                  <div class="row mb-3">
+
+
+                <div class="row mb-3">
                   <label for="inputNumber" class=" col-form-label">Image Upload</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file"  name="images" id="formFile" data-toggle="modal"
-                data-target="#exampleModal"  multiple>
-                <label id="imageValidate" class="text-danger"></label>
-                  </div>
-                </div> 
-
-                
-
-                  <div class="input-group">
-                      <span class="input-group-text">Discription</span>
-                      <textarea class="form-control" name="discription" aria-label="With textarea"></textarea>
-                      <label id="discriptionValidate" class="text-danger" ></label>
-                    </div>
+                    <input class="form-control" type="file" name="images" id="formFile" data-toggle="modal"
+                      data-target="#exampleModal" multiple>
+                    <label id="imageValidate" class="text-danger"></label>
                   </div>
                 </div>
 
-             
-                      
-                <div class="row mb-3">
-                  <div class="col-sm-10">
-                    <button type="submit"  class="btn btn-primary">Submit Form</button>
-                  </div>
+
+
+                <div class="input-group">
+                  <span class="input-group-text">Discription</span>
+                  <textarea class="form-control" name="discription" aria-label="With textarea"></textarea>
+                  <label id="discriptionValidate" class="text-danger"></label>
                 </div>
-
-              </form><!-- End General Form Elements -->
-
-              <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row" id="test">
-                  <div class="form-outline mb-4">
-            <label class="form-label" for="formFile">Image</label>
-            <span id="croppedImages"></span>
-            <input type="file" class="form-control" id="formFile" name="image" data-toggle="modal"
-                data-target="#exampleModal" accept="image/*" multiple>
-        </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
             </div>
           </div>
 
-        </div>
 
-        
+
+          <div class="row mb-3">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Submit Form</button>
+            </div>
+          </div>
+
+          </form><!-- End General Form Elements -->
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row" id="test">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="formFile">Image</label>
+                      <span id="croppedImages"></span>
+                      <input type="file" class="form-control" id="formFile" name="image" data-toggle="modal"
+                        data-target="#exampleModal" accept="image/*" multiple>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      </div>
+
+
       </div>
     </section>
 
   </main><!-- End #main -->
-              
 
 
 
-  
 
-  
+
+
+
 
   <!-- Vendor JS Files -->
   <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -190,132 +193,133 @@
   <script src="/admin-assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="/admin-assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->    
+  <!-- Template Main JS File -->
   <script src="/admin-assets/js/main.js"></script>
-{{!-- image crop script --}}
+  {{!-- image crop script --}}
   <script>
-    const input = document.getElementById('formFile')
+    const input = document.getElementById('
+    ')
     const test = document.getElementById('test')
     input.addEventListener('change', () => {
-        // Getting image file object from the input variable
-        const img_data = []
-       // const imagebox = []
-       // const crop_btn = []
-       // const confirm_btn = []
-        const url = []
-        const length= input.files.length
-        for (i = 0; i < length; i++) {
-            test.innerHTML += `<div class="col-4"><div id="image-box${i}" class="image-container" style="height: 350px; width: 350px;"> </div>
+      // Getting image file object from the input variable
+      const img_data = []
+      // const imagebox = []
+      // const crop_btn = []
+      // const confirm_btn = []
+      const url = []
+      const length = input.files.length
+      for (i = 0; i < length; i++) {
+        test.innerHTML += `<div class="col-4"><div id="image-box${i}" class="image-container" style="height: 350px; width: 350px;"> </div>
     <button class="btn btn-outline-info" id="crop-btn${i}" style="width: 100%; margin-top: 10px; display: block;" type="button">Crop</button> </div>`
-        }
-        for (i = 0; i < length; i++) {
-            img_data[i] = input.files[i]
-        }
-        
-        img_data.forEach((image_data, i) => {
-            
-            url[i] = URL.createObjectURL(image_data)
-        })
-        // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
-        // The new object URL represents the specified File object or Blob object.
-        url.forEach((url,i)=>{
-            document.getElementById('image-box'+i).innerHTML = `<img src="${url}" id="image${i}" style="width:100%;">`
-        })
-        
-        // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+      }
+      for (i = 0; i < length; i++) {
+        img_data[i] = input.files[i]
+      }
 
-        // Storing that cropping view image in a variable
-  
+      img_data.forEach((image_data, i) => {
 
-        // Displaying the image box
-        //for(i=0;i<length;i++){
+        url[i] = URL.createObjectURL(image_data)
+      })
+      // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+      // The new object URL represents the specified File object or Blob object.
+      url.forEach((url, i) => {
+        document.getElementById('image-box' + i).innerHTML = `<img src="${url}" id="image${i}" style="width:100%;">`
+      })
+
+      // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+
+      // Storing that cropping view image in a variable
+
+
+      // Displaying the image box
+      //for(i=0;i<length;i++){
       //      document.getElementById('image-box'+i).style.display= 'block'
       //       document.getElementById('crop-btn'+i).style.display= 'block'
       //  }
-       
 
-        for(i=0;i<length;i++){
-            cropper(img_data[i],document.getElementById('image'+i),i,document.getElementById('crop-btn'+i),document.getElementById('image-box'+i))
-        }
 
-        
-
-        // Creating a croper object with the cropping view image
-        // The new Cropper() method will do all the magic and diplay the cropping view and adding cropping functionality on the website
-        // For more settings, check out their official documentation at https://github.com/fengyuanchen/cropperjs
-        let container = new DataTransfer();
-        let fileInputElement = document.getElementById('formFile');
+      for (i = 0; i < length; i++) {
+        cropper(img_data[i], document.getElementById('image' + i), i, document.getElementById('crop-btn' + i), document.getElementById('image-box' + i))
+      }
 
 
 
-        function cropper(img_data, image, index, crop_btn, imagebox) {
+      // Creating a croper object with the cropping view image
+      // The new Cropper() method will do all the magic and diplay the cropping view and adding cropping functionality on the website
+      // For more settings, check out their official documentation at https://github.com/fengyuanchen/cropperjs
+      let container = new DataTransfer();
+      let fileInputElement = document.getElementById('formFile');
 
-            const cropper = new Cropper(image, {
-                autoCropArea: 1,
-                viewMode: 1,
-                scalable: false,
-                zoomable: false,
-                movable: false,
-                minCropBoxWidth: 50,
-                minCropBoxHeight: 50,
-            })
 
-            // When crop button is clicked this event will get triggered
-            crop_btn.addEventListener('click', () => {
-                // This method coverts the selected cropped image on the cropper canvas into a blob object
-                cropper.getCroppedCanvas().toBlob((blob) => {
 
-                    // Gets the original image data
-                    // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
-                    let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
-                    // Create a new container
-                    // Add the cropped image file to the container
-                    container.items.add(file);
+      function cropper(img_data, image, index, crop_btn, imagebox) {
 
-                    fileInputElement.files = container.files
-                    // Replace the original image file with the new cropped image file
-                  // Hide the cropper box
-                    imagebox.style.display = 'none'
-                    // Hide the crop button
-                    crop_btn.style.display = 'none'
-                });
-            }); 
-        }
+        const cropper = new Cropper(image, {
+          autoCropArea: 1,
+          viewMode: 1,
+          scalable: false,
+          zoomable: false,
+          movable: false,
+          minCropBoxWidth: 50,
+          minCropBoxHeight: 50,
+        })
+
+        // When crop button is clicked this event will get triggered
+        crop_btn.addEventListener('click', () => {
+          // This method coverts the selected cropped image on the cropper canvas into a blob object
+          cropper.getCroppedCanvas().toBlob((blob) => {
+
+            // Gets the original image data
+            // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+            let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
+            // Create a new container
+            // Add the cropped image file to the container
+            container.items.add(file);
+
+            fileInputElement.files = container.files
+            // Replace the original image file with the new cropped image file
+            // Hide the cropper box
+            imagebox.style.display = 'none'
+            // Hide the crop button
+            crop_btn.style.display = 'none'
+          });
+        });
+      }
     });
-</script>
+  </script>
 
-<script>
-   function addProductValidate(){
+  <script>
+    function addProductValidate() {
 
-    let name = document.forms["addProductForm"]["name"].value
-    let price = document.forms["addProductForm"]["price"].value
-    let discription =document.forms["addProductForm"]["discription"].value
-    let stock = document.forms["addProductForm"]["stock"].value
-    let image = document.forms["addProductForm"]["images"].value
-    
-    
-    if(name == "" ||name.trim() == "" ){
-      document.getElementById('productValidate').innerHTML = "Name Must be Filled"
-      return false
-    }else if(price == "" ){
-      console.log("hellooooo")
-      document.getElementById('priceValidated').innerHTML="Price Should be Filled"
-      return false
-    }else if(stock == ""){
-      document.getElementById("stockValidate").innerHTML = "Stock Should be Added"
-      return false
+      let name = document.forms["addProductForm"]["name"].value
+      let price = document.forms["addProductForm"]["price"].value
+      let discription = document.forms["addProductForm"]["discription"].value
+      let stock = document.forms["addProductForm"]["stock"].value
+      let image = document.forms["addProductForm"]["images"].value
+
+
+      if (name == "" || name.trim() == "") {
+        document.getElementById('productValidate').innerHTML = "Name Must be Filled"
+        return false
+      } else if (price == "") {
+        console.log("hellooooo")
+        document.getElementById('priceValidated').innerHTML = "Price Should be Filled"
+        return false
+      } else if (stock == "") {
+        document.getElementById("stockValidate").innerHTML = "Stock Should be Added"
+        return false
+      }
+      else if (discription == "" || discription.trim() == "") {
+        document.getElementById('discriptionValidate').innerHTML = "Discription Must be Filled"
+        return false
+      }
+
     }
-    else if( discription== "" || discription.trim()== ""){
-      document.getElementById('discriptionValidate').innerHTML = "Discription Must be Filled"
-      return false
-    }
-     
-}
 
-</script>
+  </script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
 
 
 
