@@ -89,6 +89,7 @@
                                     <label class=" col-form-label">Category</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" aria-label="Default select example" name="category">
+                                             <option  id="category"  value="{{product.category}}" >{{product.category}}</option>
                                            {{#each category}}
                                             <option  id="category"  value="{{this.categoryName}}" >{{this.categoryName}}</option>
                                            
