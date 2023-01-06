@@ -6,8 +6,8 @@ const {upload, upload2, upload3}= require('../public/javascripts/fileUpload')
 const {addproducts,addproductpost,viewProducts,editProduct,editProductPost,deleteProduct} = require('../controllers/adminProductController');
 const {addCategory,addCategoryPost,viewCategories,deleteCategory,editCategory,editCategoryPost} = require('../controllers/adminCategoryController')
 const {adminIndex, adminLogin,adminLogout, viewUser, userBlock, userUnblock} = require('../controllers/userController')
-const {addBanner, banner, editBanner} = require('../controllers/bannerController')
-const { viewOrder, sales, offer, viewOrderProducts } = require('../controllers/orderController')
+const {addBanner, banner, editBanner, adminviewBanner} = require('../controllers/bannerController')
+const { viewOrder, sales, offer, viewOrderProducts, adminUpdateStatus } = require('../controllers/orderController')
 const {addCouponPost, viewCoupon, editCoupon, editCouponPost, addCouponPage} = require('../controllers/couponController') 
 const { getproducts, deleteproduct,viewCategory, viewBanner, deleteBanner,} = require('../helpers/product-helpers');
 const { CATEGORY_COLLECTION } = require('../config/collection');
@@ -17,7 +17,7 @@ const adminHelpers = require('../helpers/admin-helpers');
 const orderHelpers = require('../helpers/order-helpers');
 const { log, logger } = require('handlebars');
 const {order} = require('paypal-rest-sdk');
-const { viewOrderdProducts, updateStatus, returnOrder } = require('../helpers/order-helpers');
+const { viewOrderdProducts,updatedStatus,returnOrder } = require('../helpers/order-helpers');
 const { addOffer, addCoupons, deleteCoupon } = require('../helpers/admin-helpers');
 
 const admin = {
@@ -98,7 +98,7 @@ router.get('/unblock/:id',verifyadmin,userUnblock)
 router.get('/add-banner',verifyadmin,banner)
 
 //<------------------------ view Banner page---------------------->
-router.get('/view-banners',verifyadmin,viewBanner)
+router.get('/view-banners',verifyadmin,adminviewBanner)
 
 //<------------------------ delete Banner ---------------------->
 router.delete('/deletebanner/:id',verifyadmin,deleteBanner)
@@ -110,7 +110,7 @@ router.get('/order',verifyadmin,viewOrder)
 router.get('/viewOrderProducts/:id',verifyadmin,viewOrderProducts)
 
 //<------------------------ update Status---------------------->
-router.post('/update-status',updateStatus)
+router.post('/update-status',adminUpdateStatus)
 
 //<-----------------------------sales page------------------------>
 router.get('/sales',verifyadmin,sales)

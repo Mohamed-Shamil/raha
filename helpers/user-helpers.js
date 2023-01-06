@@ -22,120 +22,122 @@ paypal.configure({
     mode: 'sandbox', //sandbox or live
     client_id: process.env.payPalClientId,
     client_secret: process.env.payPalClientSecret
-  });
-  
+});
+
 module.exports = {
 
     dosignup: (userData) => {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             console.log(userData)
             let response = {}
             console.log(userData);
-            userCount =  await db.get().collection(collection.USER_COLLECTION).count({email:userData.email})
-            phoneCount = await db.get().collection(collection.USER_COLLECTION).count({phone:userData.phone})
-            if(userCount!=0||phoneCount!=0){
-                
+            userCount = await db.get().collection(collection.USER_COLLECTION).count({ email: userData.email })
+            phoneCount = await db.get().collection(collection.USER_COLLECTION).count({ phone: userData.phone })
+            if (userCount != 0 || phoneCount != 0) {
+
                 response.status = false
                 response.userExist = true;
                 resolve(response)
-            }else{   
-                
-                if(userData.referral.length>0){
-                  
-                  let referrals = await db.get().collection(collection.USER_COLLECTION).findOne({userReferal:userData.referral})
-                  console.log(referrals);
-                  if(referrals){
-                    let refuser =await  db.get().collection(collection.WALLET_COLLECTION).findOne({user:objectId(referrals._id)})
-                    console.log(refuser);
-                    let balance = refuser.balance+100;
-                    let transactions={
-                        credit:100,
-                        date:new Date(),
-                        message:"Refferral Bonus"
-                    }
-                    let update = await db.get().collection(collection.WALLET_COLLECTION).updateOne({user:objectId(referrals._id)},{
-                        $set:{
-                            balance:balance
-                        },
-                        
-                            $push:{
-                                transactions:transactions
-                            }
-                        
-                    }
-                    )
-                    console.log(update);
+            } else {
 
-                    response.status = true;
-                     userReferal  = referral.generate({
-                        prefix: 'RaHa-',
-                        postfix: '-2022',
-                      });
-    
-                      userData.userReferal= userReferal[0]
+                if (userData.referral.length > 0) {
+
+                    let referrals = await db.get().collection(collection.USER_COLLECTION).findOne({ userReferal: userData.referral })
+                    console.log(referrals);
+                    if (referrals) {
+                        let refuser = await db.get().collection(collection.WALLET_COLLECTION).findOne({ user: objectId(referrals._id) })
+                        console.log(refuser);
+                        let balance = refuser.balance + 100;
+                        let transactions = {
+                            credit: 100,
+                            debit: 0,
+                            date: new Date(),
+                            message: "Refferral Bonus"
+                        }
+                        let update = await db.get().collection(collection.WALLET_COLLECTION).updateOne({ user: objectId(referrals._id) }, {
+                            $set: {
+                                balance: balance
+                            },
+
+                            $push: {
+                                transactions: transactions
+                            }
+
+                        }
+                        )
+                        console.log(update);
+
+                        response.status = true;
+                        userReferal = referral.generate({
+                            prefix: 'RaHa-',
+                            postfix: '-2022',
+                        });
+
+                        userData.userReferal = userReferal[0]
                         console.log(userData.userReferal)
+                        bcrypt.hash(userData.password, 10, (err, hash) => {
+                            console.log(userData.password)
+                            userData.password = hash
+                            userData.status = true
+                            db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async (response) => {
+                                let transactions = {
+                                    credit: 50,
+                                    debit: 0,
+                                    date: new Date(),
+                                    message: "Refferral Bonus"
+                                }
+                                let wallets = {
+                                    user: response.insertedId,
+                                    balance: 50,
+                                    transactions: [transactions]
+                                }
+                                let wallet = await db.get().collection(collection.WALLET_COLLECTION).insertOne(wallets)
+                                // walletHelpers.userWallet(data.insertedId)
+                                // walletHelpers.addWalletAmount(data.insertedId)  
+                                resolve(response.insertedId)
+                            }).catch((err) => {
+                                reject(err)
+                            })
+                            console.log(err, hash)
+                        })
+
+                    } else {
+                        response.message = "Invalid Referral",
+                            resolve(response)
+                    }
+                } else {
+                    response.status = true;
+                    userReferal = referral.generate({
+                        prefix: 'RAHA-',
+                        postfix: '-2022',
+                    });
+
+                    userData.userReferal = userReferal[0]
+                    console.log(userData.userReferal)
                     bcrypt.hash(userData.password, 10, (err, hash) => {
-                        console.log(userData.password) 
+                        console.log(userData.password)
                         userData.password = hash
                         userData.status = true
-                        db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async(response) => {
-                            let transactions={
-                                credit:50,
-                                date:new Date(),
-                                message:"Refferral Bonus"
-                            }
-                            let wallets ={
-                                user:response.insertedId,
-                                balance:50,
-                                transactions:[transactions]
+                        db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async (response) => {
+
+                            let wallets = {
+                                user: response.insertedId,
+                                balance: 0,
+                                transactions: []
                             }
                             let wallet = await db.get().collection(collection.WALLET_COLLECTION).insertOne(wallets)
-                            // walletHelpers.userWallet(data.insertedId)
-                            // walletHelpers.addWalletAmount(data.insertedId)  
+                            //    walletHelpers.userWallet(data.insertedId)
+                            //    walletHelpers.addWalletAmount(data.insertedId)  
                             resolve(response.insertedId)
-                        }).catch((err) => { 
+                        }).catch((err) => {
                             reject(err)
                         })
-                        console.log(err, hash) 
+                        console.log(err, hash)
                     })
 
-                  }else{
-                    response.message ="Invalid Referral",
-                    resolve(response)
-                  }
-                }else{
-                    response.status = true;
-                    userReferal  = referral.generate({
-                       prefix: 'RAHA-',
-                       postfix: '-2022',
-                     });
-   
-                     userData.userReferal= userReferal[0]
-                       console.log(userData.userReferal)
-                   bcrypt.hash(userData.password, 10, (err, hash) => {
-                       console.log(userData.password) 
-                       userData.password = hash
-                       userData.status = true
-                       db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async(response) => {
-                        
-                        let wallets ={
-                            user:response.insertedId,
-                            balance:0,
-                            transactions:[]
-                        }
-                        let wallet = await db.get().collection(collection.WALLET_COLLECTION).insertOne(wallets)
-                        //    walletHelpers.userWallet(data.insertedId)
-                        //    walletHelpers.addWalletAmount(data.insertedId)  
-                           resolve(response.insertedId)
-                       }).catch((err) => { 
-                           reject(err)
-                       })
-                       console.log(err, hash) 
-                   })
-
                 }
-               
-    
+
+
             }
         })
 
@@ -151,21 +153,21 @@ module.exports = {
 
             if (user) {
                 bcrypt.compare(userData.password, user.password).then((status) => {
-         
+
                     if (status && user.status) {
-                       
-                        if(user.status){
-                        console.log("success");
-                        response.status = true
-                        response.user = user
-                        resolve(response)
+
+                        if (user.status) {
+                            console.log("success");
+                            response.status = true
+                            response.user = user
+                            resolve(response)
                         }
-                        
+
                         // console.log(status);
 
-                    } 
-                    else if(status && user.status == false){
-                    
+                    }
+                    else if (status && user.status == false) {
+
                         response.userBlock = true
                         resolve(response)
                     }
@@ -197,17 +199,17 @@ module.exports = {
 
     },
 
-blockUser: (userId,status) => {
+    blockUser: (userId, status) => {
 
-    return new Promise(async(resolve,reject)=>{
-        await db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{
-            $set:{
-                status:status
-            }
-        }).then((response)=>{
-            resolve(response)
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) }, {
+                $set: {
+                    status: status
+                }
+            }).then((response) => {
+                resolve(response)
+            })
         })
-    })
     },
 
     unblockUser: (userId) => {
@@ -255,36 +257,36 @@ blockUser: (userId,status) => {
             }
         })
     },
-    addToCart:async (proId, userId) => {
+    addToCart: async (proId, userId) => {
 
-       let product =await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:objectId(proId)})
+        let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proId) })
 
         let prices = product.price
         let proObj = {
-            item: objectId(proId),  
-            quantity: 1,   
+            item: objectId(proId),
+            quantity: 1,
             price: parseInt(prices)
         }
-      
+
         return new Promise(async (resolve, reject) => {
 
             let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
             if (userCart) {
 
                 let proExist = userCart.products.findIndex(product => product.item == proId)
-                    
+
                 if (proExist != -1) {
-                    
+
                     db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId), 'products.item': objectId(proId) },
                         {
-                            $inc: { 'products.$.quantity': 1}
+                            $inc: { 'products.$.quantity': 1 }
                         }).then(() => {
                             resolve()
 
                         })
-                        .then(()=>{
-                        resolve()
-                    })
+                        .then(() => {
+                            resolve()
+                        })
                 } else {
                     db.get().collection(collection.CART_COLLECTION)
                         .updateOne({ user: objectId(userId) }, {
@@ -325,10 +327,10 @@ blockUser: (userId,status) => {
                     $project: {
                         item: '$products.item',
                         quantity: '$products.quantity',
-                        price:'$products.price'
+                        price: '$products.price'
 
-                      
-                    
+
+
                     }
                 },
                 {
@@ -340,14 +342,14 @@ blockUser: (userId,status) => {
                     }
                 }, {
                     $project: {
-                         item: 1,
-                         quantity: 1,
-                         price:1, 
-                         product: { $arrayElemAt: ['$product', 0] }
-                       
+                        item: 1,
+                        quantity: 1,
+                        price: 1,
+                        product: { $arrayElemAt: ['$product', 0] }
+
                     }
                 }
-                   
+
             ]).toArray()
             resolve(cartItems)
 
@@ -416,7 +418,7 @@ blockUser: (userId,status) => {
     },
     getTotalAmount: (userId) => {
         return new Promise(async (resolve, reject) => {
-            
+
 
             let total = await db.get().collection(collection.CART_COLLECTION).aggregate([
 
@@ -431,7 +433,7 @@ blockUser: (userId,status) => {
                         item: '$products.item',
                         quantity: '$products.quantity',
                         price: '$products.price'
-                        
+
                     }
                 },
                 {
@@ -445,13 +447,13 @@ blockUser: (userId,status) => {
                     $project: {
                         item: 1,
                         quantity: 1,
-                        price:1,
+                        price: 1,
                         product: { $arrayElemAt: ['$product', 0] }
                     }
                 }, {
                     $group: {
                         _id: null,
-                        total: { $sum: { $multiply: ['$quantity','$product.price'] } }
+                        total: { $sum: { $multiply: ['$quantity', '$product.price'] } }
                     }
                 }
 
@@ -467,7 +469,7 @@ blockUser: (userId,status) => {
     },
 
     placeOrder: (order, products, total) => {
-    
+
         return new Promise((resolve, reject) => {
             const d = new Date()
 
@@ -494,38 +496,38 @@ blockUser: (userId,status) => {
                 date: new Date().toDateString(),
                 time: d.getTime()
 
-                
+
             }
             products.forEach(element => {
                 element.trackOrder = status
             })
 
-         
 
-            if(order.percentage){
-                let off = (40*parseInt(order.percentage))/100
-            
-                products.forEach(element=>{
-                    element.couponPercentage = parseInt(order.percentage) ,
-                    element.coupon = order.coupon
+
+            if (order.percentage) {
+                let off = (40 * parseInt(order.percentage)) / 100
+
+                products.forEach(element => {
+                    element.couponPercentage = parseInt(order.percentage),
+                        element.coupon = order.coupon
                 })
 
-                products.forEach(element=>{
-                    element.offerPrice = Math.round(parseInt(element.price) - parseInt(element.price)*off/100)
+                products.forEach(element => {
+                    element.offerPrice = Math.round(parseInt(element.price) - parseInt(element.price) * off / 100)
                 })
             }
-    
+
 
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
-                products.forEach(element=>{
-                     let stock = parseInt(- element.quantity)
-                     db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:objectId(element.item)},{
-                        $inc:{stock:stock}
+                products.forEach(element => {
+                    let stock = parseInt(- element.quantity)
+                    db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: objectId(element.item) }, {
+                        $inc: { stock: stock }
                     })
                 })
 
 
-                db.get().collection(collection.CART_COLLECTION).deleteOne({ user: objectId(order.userId) }).then((response) => {
+                db.get().collection(collection.CART_COLLECTION).deleteOne({ user: objectId(order.userId) }).then(() => {
                     resolve(response.insertedId)
                     console.log("order created");
                 })
@@ -536,7 +538,7 @@ blockUser: (userId,status) => {
         return new Promise((resolve, reject) => {
 
             var options = {
-                amount:parseInt( total )* 100,
+                amount: parseInt(total) * 100,
                 currency: "INR",
                 receipt: "" + orderId
             }
@@ -552,7 +554,7 @@ blockUser: (userId,status) => {
     }
 
     ,
-        getCartProductList: (userId) => {
+    getCartProductList: (userId) => {
 
         return new Promise(async (resolve, reject) => {
 
@@ -602,31 +604,36 @@ blockUser: (userId,status) => {
             let hmac = crypto.createHmac('sha256', process.env.verifyPaymentHmac)
 
             hmac.update(details['payment[razorpay_order_id]'] + '|' + details['payment[razorpay_payment_id]'])
-            let = hmac.digest('hex')
+            hmac = hmac.digest('hex')
 
             if (hmac == details['payment[razorpay_signature]']) {
-
                 resolve()
+
             } else {
                 reject()
             }
         })
     },
+
     changePaymentStatus: (orderId) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.ORDER_COLLECTION)
+            const order = db.get().collection(collection.ORDER_COLLECTION)
                 .updateOne({ _id: objectId(orderId) }, {
                     $set: {
-                        "products.$.trackOrder": 'placed'
+                        'products.$[].trackOrder': 'placed'
                     }
-                }).then(() => {
-                    console.log("orderID is here");
-                    resolve()
-                }).catch((err) => {
-                    console.log(err)
+                })
+                .then(() => {
+                    resolve(order)
+                })
+                .catch((err) => {
+                    reject(err)
                 })
         })
     },
+
+
+
 
     getAddress: (userId) => {
         return new Promise(async (resolve, reject) => {
@@ -646,8 +653,8 @@ blockUser: (userId,status) => {
     ,
     getUserDetails: (userId) => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)})
-            
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) })
+
             resolve(user)
 
         })
@@ -670,8 +677,8 @@ blockUser: (userId,status) => {
             resolve(address)
         })
     },
-    generatePaypal:(orderId,total)=>{
-        return new Promise((resolve,reject)=>{
+    generatePaypal: (orderId, total) => {
+        return new Promise((resolve, reject) => {
             const create_payment_json = {
                 intent: "sale",
                 payer: {
@@ -702,75 +709,75 @@ blockUser: (userId,status) => {
                 if (error) {
                     throw error;
                 } else {
-                    for(let i = 0;i < payment.links.length;i++){
-                      if(payment.links[i].rel === 'approval_url'){
-                        resolve(payment.links[i].href);
-                        db.get().collection(collection.ORDER_COLLECTION).updateOne({
-                            _id:objectId(orderId)
-                        },
-                        {
-                            $set:{
-                                status:"placed"
-                            }
-                        })
+                    for (let i = 0; i < payment.links.length; i++) {
+                        if (payment.links[i].rel === 'approval_url') {
+                            resolve(payment.links[i].href);
+                            db.get().collection(collection.ORDER_COLLECTION).updateOne({
+                                _id: objectId(orderId)
+                            },
+                                {
+                                    $set: {
+                                        status: "placed"
+                                    }
+                                })
 
-                      }
+                        }
                     }
                 }
-              });
-              
-        })
-        
-    },
-    getCoupon:()=>{
-        return new Promise(async(resolve,reject)=>{
-          let coupon = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+            });
 
-          resolve(coupon)
+        })
+
+    },
+    getCoupon: () => {
+        return new Promise(async (resolve, reject) => {
+            let coupon = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+
+            resolve(coupon)
         })
     },
-    getOneCoupon:(couponId)=>{
-        return new Promise(async(resolve,reject)=>{
-         let coupon = await  db.get().collection(collection.COUPON_COLLECTION).findOne({_id:objectId(couponId)})
-                resolve(coupon)
-           
+    getOneCoupon: (couponId) => {
+        return new Promise(async (resolve, reject) => {
+            let coupon = await db.get().collection(collection.COUPON_COLLECTION).findOne({ _id: objectId(couponId) })
+            resolve(coupon)
+
         })
     },
-    checkCoupon:(couponDetails)=>{
+    checkCoupon: (couponDetails) => {
         console.log(couponDetails);
-        return new Promise(async(resolve,reject)=>{
-          let coupon = await db.get().collection(collection.COUPON_COLLECTION).findOne({couponName:couponDetails.coupon})
-          
-                resolve(coupon)
-           
-            
+        return new Promise(async (resolve, reject) => {
+            let coupon = await db.get().collection(collection.COUPON_COLLECTION).findOne({ couponName: couponDetails.coupon })
+
+            resolve(coupon)
+
+
         })
     },
-   
-    getWalletDetails:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-            wallet =await db.get().collection(collection.WALLET_COLLECTION).findOne({user:objectId(userId)})
+
+    getWalletDetails: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            wallet = await db.get().collection(collection.WALLET_COLLECTION).findOne({ user: objectId(userId) })
             console.log(wallet);
             resolve(wallet)
         })
     },
 
-    getAllCoupons:()=>{
-        return new Promise(async(resolve,reject)=>{
-           let coupon =  await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
-                
+    getAllCoupons: () => {
+        return new Promise(async (resolve, reject) => {
+            let coupon = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+
             resolve(coupon)
-      
+
         })
-     
-    },editUserPassword: (details) => {
+
+    }, editUserPassword: (details) => {
         return new Promise(async (resolve, reject) => {
             let response = {};
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(details.userId) })
 
             if (user) {
 
-                 bcrypt.compare(details.oldPassword, user.password).then(async(person) => {
+                bcrypt.compare(details.oldPassword, user.password).then(async (person) => {
                     console.log(person)
                     if (person) {
                         if (details.newPassword == details.rePassword) {
@@ -783,11 +790,11 @@ blockUser: (userId,status) => {
 
 
                                 }
-                            }).then((response)=>{
-                              
+                            }).then((response) => {
+
                                 response.status = true;
                                 response.message = ""
-                                resolve({status:true})
+                                resolve({ status: true })
                             })
                         } else {
                             response.status = false;
@@ -808,12 +815,11 @@ blockUser: (userId,status) => {
                 response.message = "something went wrong !"
                 resolve(response)
             }
-           
-           
+
+
         })
     }
 
 }
- 
-  
-  
+
+

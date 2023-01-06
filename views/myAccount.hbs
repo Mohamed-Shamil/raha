@@ -192,18 +192,19 @@
                                              {{this.date}}
                                             </div>
                                             <div class="col-md-3">
-                                               
+                                               {{#if (walletTransaction this.credit)}}
                                                 Rs &nbsp; <span class="text-success">{{this.credit}}</span>
                                                <br>
+                                               {{else}}
                                                 Rs &nbsp; <span class="text-danger">{{this.debit}}</span>
-                                                
+                                               {{/if}}
                                             </div>
                                             <div class="col-md-3">
-                                      
+                                                 {{#if (walletTransaction this.credit)}}
                                                 <p class="text-success">Credited</p>
-                                              
+                                                 {{else}}
                                                 <p class="text-danger">Debited </p>
-
+                                                {{/if}}
                                                 
                                             </div>
                                             <div class="col-md-3">

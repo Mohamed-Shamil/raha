@@ -94,13 +94,13 @@ module.exports={
 
     viewCategory : ()=>{
         return new Promise(async(resolve,reject)=>{
-          category =  await db.get().collection(collection.CATEGORY_COLLECTION).find().sort({time:-1}).toArray();
+          const category =  await db.get().collection(collection.CATEGORY_COLLECTION).find().sort({time:-1}).toArray();
 
           resolve(category)
             
         })
     }
-    ,
+    , 
     viewProducts : ()=>{
         return new Promise(async(resolve,reject)=>{
           products =  await db.get().collection(collection.PRODUCT_COLLECTION).find({}).sort({time:-1}).toArray();
@@ -195,7 +195,7 @@ module.exports={
 
     viewBanner : ()=>{
         return new Promise(async(resolve,reject)=>{
-
+           
            let banner = await db.get().collection(collection.BANNER_COLLECTION).find().sort({time:-1}).toArray()
             resolve(banner)
         })

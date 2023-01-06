@@ -2,6 +2,7 @@ const collections = require('../config/collection')
 var db = require('../config/connection')
 const productHelpers = require('../helpers/product-helpers')
 const {upload} = require("../public/javascripts/fileUpload")
+const adminHelpers = require('../helpers/admin-helpers')
 
 module.exports= { 
     addBanner: (req,res)=>{
@@ -19,11 +20,10 @@ module.exports= {
         res.render('admin/add-banner',{admin:true,adminlayout:true})
       },
       
-    viewBanner:(req,res)=>{
-        productHelpers.viewBanner().then((banner)=>{
+    adminviewBanner: async(req,res)=>{
+       let banner = await productHelpers.viewBanner()
           res.render('admin/view-banner',{admin:true,banner,adminlayout:true})
-        })
-         
+      
         
       },
 

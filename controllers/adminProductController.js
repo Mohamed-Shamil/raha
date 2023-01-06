@@ -39,8 +39,6 @@ module.exports= {
     viewProducts :async (req,res)=>{
        let product= await productHelpers.getproducts()
        let category = await  productHelpers.editCategory()
-        console.log(category);
-        console.log(product);
         res.render('admin/view-products',{admin:true,product,category,adminlayout:true})
      
         
@@ -49,7 +47,8 @@ module.exports= {
     editProduct :async(req,res)=>{
       let product =await productHelpers.editproduct(req.params.id)
       let category = await productHelpers.viewCategory()
-     
+     console.log(product)
+     console.log("ddddddddddddddddddddddddddddddddddddddddddddd");
         res.render('admin/editproducts',{admin:true,product,category})
       
       

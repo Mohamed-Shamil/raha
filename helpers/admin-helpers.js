@@ -7,7 +7,16 @@ module.exports = {
 
   getAllOrders: () => {
     return new Promise(async (resolve, reject) => {
-      let order = await db.get().collection(collection.ORDER_COLLECTION).find().sort({time:-1}).toArray()
+      // let order = await db.get().collection(collection.ORDER_COLLECTION).find().sort({time:-1}).toArray()
+
+      let pipeline = [{
+        $match: {
+            "products.trackOrder": { $ne: "pending" }
+        }
+    },
+    { $sort: { time: -1 } }];
+
+    let order = await db.get().collection(collection.ORDER_COLLECTION).aggregate(pipeline).toArray();
       resolve(order)
     })
   },

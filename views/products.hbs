@@ -5,10 +5,10 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Centered</li>
+                        {{!-- <li class="breadcrumb-item active" aria-current="page">Centered</li> --}}
                     </ol>
 
-                    <nav class="product-pager ml-auto" aria-label="Product">
+                    {{!-- <nav class="product-pager ml-auto" aria-label="Product">
                         <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
                             <i class="icon-angle-left"></i>
                             <span>Prev</span>
@@ -18,7 +18,7 @@
                             <span>Next</span>
                             <i class="icon-angle-right"></i>
                         </a>
-                    </nav><!-- End .pager-nav -->
+                    </nav><!-- End .pager-nav --> --}}
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -54,15 +54,15 @@
                                 <div class="product-details product-details-centered">
                                     <h1 class="product-title">{{products.name}}</h1><!-- End .product-title -->
 
-                                    <div class="ratings-container">
+                                    {{!-- <div class="ratings-container">
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
                                         <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
-                                    </div><!-- End .rating-container -->
+                                    </div><!-- End .rating-container --> --}}
 
-                                    <div class="product-price">
-                                      ₹ {{products.price}}
+                                    <div class="product-price ">
+                                       ₹ {{products.price}}
                                     </div><!-- End .product-price -->
 
                                     <div class="product-content">
@@ -71,7 +71,7 @@
 
                       
 
-                                    <div class="details-filter-row details-row-size">
+                                    {{!-- <div class="details-filter-row details-row-size">
                                         <label for="size">Size:</label>
                                         <div class="select-custom">
                                             <select name="size" id="size" class="form-control">
@@ -84,7 +84,7 @@
                                         </div><!-- End .select-custom -->
 
                                         <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                    </div><!-- End .details-filter-row -->
+                                    </div><!-- End .details-filter-row --> --}} 
 
                                     <div class="product-details-action">
                                         <div class="details-action-col">
@@ -92,7 +92,7 @@
                                                 <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                             </div><!-- End .product-details-quantity -->
 
-                                            <a href="#" class="btn-product btn-cart"><span >add to cart</span></a>
+                                            <button  onclick="addToCart('{{this._id}}')" class="btn-product btn-cart"><span >add to cart</span></button>
                                         </div><!-- End .details-action-col -->
 
                                         <div class="details-action-wrapper">
@@ -121,7 +121,7 @@
                         </div><!-- End .row -->
                     </div><!-- End .product-details-top -->
 
-                    <div class="product-details-tab">
+                    {{!-- <div class="product-details-tab">
                         <ul class="nav nav-pills justify-content-center" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
@@ -233,10 +233,10 @@
                                 </div><!-- End .reviews -->
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
-                    </div><!-- End .product-details-tab -->
+                    </div><!-- End .product-details-tab --> --}}
 
-                    <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
-                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                    {{!-- <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center --> --}}
+                    {{!-- <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{
                             "nav": false, 
                             "dots": true,
@@ -271,16 +271,16 @@
 
                                 <div class="product-action-vertical">
                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                    {{!-- <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a> --}}
+                                    {{!-- <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a> --}}
                                 </div><!-- End .product-action-vertical -->
 
                                 <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <a href="#" class="btn-product btn-cart"><span class="btn-product btn-cart">add to cart</span></a>
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
-                            <div class="product-body">
+                            {{!-- <div class="product-body">
                                 <div class="product-cat">
                                     <a href="#">Women</a>
                                 </div><!-- End .product-cat -->
@@ -300,7 +300,7 @@
                                     <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
                                     <a href="#" style="background: #806b3e;"><span class="sr-only">Color name</span></a>
                                 </div><!-- End .product-nav -->
-                            </div><!-- End .product-body -->
+                            </div><!-- End .product-body --> --}}
                         </div><!-- End .product -->
 
                         <div class="product product-7 text-center">
@@ -312,8 +312,8 @@
 
                                 <div class="product-action-vertical">
                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                    {{!-- <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a> --}}
                                 </div><!-- End .product-action-vertical -->
 
                                 <div class="product-action">
@@ -321,21 +321,7 @@
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jackets</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    <span class="out-price">$120.00</span>
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 6 Reviews )</span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
+                           
                         </div><!-- End .product -->
 
                         <div class="product product-7 text-center">
@@ -446,7 +432,7 @@
                                 </div><!-- End .rating-container -->
                             </div><!-- End .product-body -->
                         </div><!-- End .product -->
-                    </div><!-- End .owl-carousel -->
+                    </div><!-- End .owl-carousel --> --}}
                 </div><!-- End .container -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->

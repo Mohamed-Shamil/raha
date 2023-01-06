@@ -347,8 +347,8 @@ router.get('/my-account',verifyLogin,cartCount,async(req,res)=>{
   let orders = await orderHelpers.getOrderDetails(req.session.user._id)
   let address = await userHelpers.getAddress(req.session.user._id)
   let user = await userHelpers.getUserDetails(req.session.user._id)
-  let wallet = await userHelpers.getWalletDetails(req.session.user._id)
-  
+  let wallet = await userHelpers.getWalletDetails(req.session.user._id) 
+
   let usr=req.session.user._id
   
   console.log("my account opens here");
@@ -404,11 +404,8 @@ router.get("/request-page/:id/:orderId",cartCount,verifyLogin,async(req,res)=>{
   res.render('return-page',{user:true,userlayout:true,order,user,prod,productid})
 })
 
-router.post('/update-return-request',(req,res)=>{
-  console.log(req.body);
-
+router.post('/update-return-request',(req,res)=>{ 
   orderHelpers.updateRequest(req.body).then(()=>{
-      console.log("hiiiiiiiiiiiiiiiii");
     res.json({status:true})
   })
 })
@@ -447,7 +444,6 @@ router.get('/get-address/:id',async(req,res)=>{
  })
 
  router.post('/sumbit-coupon',async(req,res)=>{
-
  let coupon = await userHelpers.checkCoupon(req.body)
  console.log(coupon);
         res.json(coupon)

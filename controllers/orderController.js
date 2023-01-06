@@ -9,7 +9,6 @@ const adminHelpers = require('../helpers/admin-helpers')
 module.exports= { 
     viewOrder:async(req,res)=>{
         let orders = await adminHelpers.getAllOrders()
-        console.log(orders);
         res.render('admin/view-orders',{admin:true,orders,adminlayout:true})
         
       },
@@ -17,16 +16,14 @@ module.exports= {
       viewOrderProducts:async(req,res)=>{
         let viewProducts = await adminHelpers.adminViewOrderdProducts(req.params.id)
         let order = await adminHelpers.getOrder(req.params.id)
-        console.log(order.date);
-        console.log(viewProducts);
-          res.render('admin/view-orderdProducts',{admin:true,order,viewProducts,adminlayout:true})
+        let userId = order.userId
+          res.render('admin/view-orderdProducts',{admin:true,userId,order,viewProducts,adminlayout:true})
         
         
       },
 
-    updateStatus:(req,res)=>{
-        console.log(req.body);
-        orderHelpers.updateStatus(req.body,req.session.user._id).then(()=>{
+      adminUpdateStatus:(req,res)=>{
+        orderHelpers.updatedStatus(req.body).then(()=>{
           res.json({status:true})
         })
         

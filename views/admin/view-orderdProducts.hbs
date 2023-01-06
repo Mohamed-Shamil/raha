@@ -121,6 +121,7 @@
                     <input type="number" value="{{this.quantity}}" id="quantityId" hidden>
                     <h4 class="mb-3">₹{{this.product.price}} <span class="small text-muted"> via (COD) </span></h4>
                     <p> Status:<span class="text-danger"> {{this.status}}</span></p>
+                    
 
 
                   </div>
@@ -133,7 +134,7 @@
                 <div class="dropdown">
                   Status :
                   <select class="btn btn-dark" name=""
-                    onchange="changeStatus('{{this._id}}','{{this.product._id}}',event)">
+                    onchange="changeStatus('{{this._id}}','{{this.product._id}}','{{../userId}}',event)">
                     
                     {{#if  (cancel this.status)}}
                       <option value="canceled">Canceled</option>  
@@ -172,7 +173,7 @@
       <script src="/admin-assets/js/main.js"></script>
 
       <script>
-        function changeStatus(orderId, proId, event) {
+        function changeStatus(orderId,proId,userId,event) {
           value = event.target.value
           let quantity = document.getElementById('quantityId').value;
           $.ajax({
@@ -182,10 +183,11 @@
               orderId: orderId,
               proId: proId,
               status: value,
-              quantity: quantity
+              quantity: quantity,
+              userId:userId
+
             },
             success: (response) => {
-              alert("hi")
               if (response.status) {
                 location.reload()
               }

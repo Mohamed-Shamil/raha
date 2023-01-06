@@ -83,7 +83,7 @@
                                 </tbody>
                             </table><!-- End .table table-wishlist -->
 
-                            <div class="cart-bottom">
+                            {{!-- <div class="cart-bottom">
                                 <div class="cart-discount">
                                     <form action="#">
                                         <div class="input-group">
@@ -98,7 +98,7 @@
 
                                 <a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i
                                         class="icon-refresh"></i></a>
-                            </div><!-- End .cart-bottom -->
+                            </div><!-- End .cart-bottom --> --}}
                         </div><!-- End .col-lg-9 -->
                         <aside class="col-lg-3">
                             <div class="summary summary-cart">
@@ -108,7 +108,7 @@
                                     <tbody>
                                         <tr class="summary-subtotal">
                                             <td>Subtotal:</td>
-                                            <td><span id="total">₹{{totalValue}}</span></td>
+                                            <td><span id="subTotal">₹{{totalValue}}</span></td>
                                         </tr><!-- End .summary-subtotal -->
                                         <tr class="summary-shipping">
                                             <td>Shipping:</td>
@@ -131,7 +131,7 @@
 
                                         <tr class="summary-total">
                                             <td>Total:</td>
-                                            <td><span id="total">₹{{totalValue}}</span></td>
+                                             <td><span id="total">₹{{totalValue}}</span></td>
                                         </tr><!-- End .summary-total -->
                                     </tbody>
                                 </table><!-- End .table table-summary -->
@@ -196,7 +196,7 @@
 
                     document.getElementById(proId).innerHTML = quantity + count
                     document.getElementById('total').innerHTML = response.total
-
+                    document.getElementById('subTotal').innerHTML = response.total
                 }
 
 

@@ -104,6 +104,10 @@ Handlebars.registerHelper('for', function(from, to, incr, block) {
   return accum;
 });
 
+Handlebars.registerHelper('walletTransaction',(value)=>{
+  return value > 0 ? true:false
+})
+
 
 
 
