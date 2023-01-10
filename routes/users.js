@@ -25,7 +25,8 @@ const verifyLogin=(req,res,next)=>{
 }
 
 const checkBlock =  async(req,res,next)=>{
-  user = req.session.user
+  if(req.session.loggedIn){
+    user = req.session.user
   usrStatus = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(user._id)})
   if(usrStatus.status == false){
     req.logout(function(err) {
@@ -36,6 +37,8 @@ const checkBlock =  async(req,res,next)=>{
   }else{
     next()
   }
+  }
+  
 }
 
 
