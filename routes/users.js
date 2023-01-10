@@ -1,5 +1,6 @@
 const express = require('express');
 const { log } = require('handlebars');
+var db = require('../config/connection')
 const { response } = require('../app');
 const orderHelpers = require('../helpers/order-helpers');
 const productHelpers = require('../helpers/product-helpers');
@@ -9,7 +10,9 @@ const { route } = require('./admin');
 const referral = require('referral-codes')
 var router = express.Router();
 
-const paypal = require('paypal-rest-sdk')
+const paypal = require('paypal-rest-sdk');
+const collection = require('../config/collection');
+const { ObjectId } = require('mongodb');
 
 
 const verifyLogin=(req,res,next)=>{
@@ -21,18 +24,32 @@ const verifyLogin=(req,res,next)=>{
   }
 }
 
+const checkBlock =  async(req,res,next)=>{
+  user = req.session.user
+  usrStatus = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(user._id)})
+  if(usrStatus.status == false){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/login');
+    });
+   
+  }else{
+    next()
+  }
+}
 
-const cartCount =async(req,res,next)=>{
+
+const cartCount = async(req,res,next)=>{
   if(req.session.loggedIn){
    let cartCount = await userHelpers.getCartCount(req.session.user._id);
    res.locals.userLogin =   req.session.user
 
    res.locals.cartCount=cartCount
-    next()
+    next() 
   }else{
     let cartCount=0;
     res.locals.cartCount=cartCount
-    next()
+    next() 
     }
 
 }
@@ -102,10 +119,18 @@ router.route('/login')
   
 })
 
-router.get('/logout',(req,res)=>{
-req.session.destroy()
-res.redirect('/')
-})
+
+// router.get('/logout',(req,res)=>{
+// // req.session.destroy()
+// res.redirect('/')
+// })
+
+router.get('/logout', function(req, res, next){
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
 
 router.get('/product/:id',async(req,res)=>{
   
@@ -261,20 +286,24 @@ router.post('/remove-product',(req,res)=>{
   })
 })
 
-router.get('/checkout',verifyLogin,cartCount,async(req,res)=>{ 
+router.get('/checkout',checkBlock,  verifyLogin,cartCount,async(req,res)=>{ 
   let formAddress = await userHelpers.getAddressToForm(req.session.user._id)
   let total = await userHelpers.getTotalAmount(req.session.user._id)
   let address = await userHelpers.getAlladdress(req.session.user._id)
   let coupon = await userHelpers.getCoupon()
   let wallet = await userHelpers.getWalletDetails(req.session.user._id)
+  console.log(total)
+  console.log("checkout log page users row 293");
 
   
   res.render('checkout',{total,user:req.session.user,address,formAddress,coupon,wallet,userlayout:true}) 
 })
-
+  
 router.post('/place-order',verifyLogin,async(req,res)=>{
 
   let products = await userHelpers.getCartProductList(req.body.userId)
+  console.log(products);
+  console.log("users 303 products ");
   if(req.body.newTotal>1){
     totalPrice= req.body.newTotal
 

@@ -17,6 +17,7 @@ const nocache = require('nocache');
 var Handlebars = require('handlebars');
 const referral = require('referral-codes')
 const dotenv = require('dotenv').config();
+const passport = require('passport')
 
 
 // view engine setup
@@ -39,6 +40,10 @@ app.use(session({
 }
   
 ))
+
+// Set up Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Register Helpers
  
