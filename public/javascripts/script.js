@@ -74,3 +74,22 @@ function addToWishlist(proId) {
     
 }
 
+
+        function addToWishlist(pid) {
+            console.log(pid)
+            $.ajax({
+                url: '/add-to-wishlist/' + pid,
+                type: 'get',
+                success: (response) => {  
+                    console.log("dddddddddddddddddddddddddddddddddddddd")
+                    console.log(response);
+                    if (response.status) {
+                        let count = $('#wishlist-count').html()
+                        count = parseInt(count) + 1
+                        $("#wishlist-count").html(count)
+                    }
+                }
+            })
+        }
+
+

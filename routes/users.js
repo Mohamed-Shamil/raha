@@ -12,7 +12,9 @@ var router = express.Router();
 const passport = require('passport')
 const paypal = require('paypal-rest-sdk');
 const collection = require('../config/collection');
+const wishlist = require('../helpers/wishlist-helper')
 const { ObjectId } = require('mongodb');
+const wishlistHelper = require('../helpers/wishlist-helper');
 
 
 const verifyLogin=(req,res,next)=>{
@@ -193,7 +195,7 @@ userHelpers.otpUserVerify(req.body).then((response)=>{
     phone_no = parseInt(req.body.phone)
   
     client.verify
-    .services('VA596b689b357641ce139d77f00b7b670e') // Change service ID
+    .services(process.env.twilioServieId) // Change service ID
       .verifications.create({
         to: `+91${req.body.phone}`,
         channel:  "sms",
@@ -221,7 +223,7 @@ userHelpers.otpUserVerify(req.body).then((response)=>{
     
     
     client.verify
-      .services('VA596b689b357641ce139d77f00b7b670e') // Change service ID
+      .services(process.env.twilioServieId) // Change service ID
       .verificationChecks.create({
         to: `+91${phone_no}`,
         code: req.body.OTP,
@@ -482,12 +484,29 @@ router.get('/get-address/:id',async(req,res)=>{
 
  })
 
+router.get('/wishlist',verifyLogin,cartCount,async(req,res)=>{
+
+  products = await wishlistHelper.viewWishlist(req.session.user._id)
+  res.render('wishlist',{userlayout:true,user:true,products})
+})
+
+
+
  router.get('/add-to-wishlist/:id',(req,res)=>{ 
-    userHelpers.addTowishlist(req.params.id)
-  //////////////////////////
+    wishlistHelper.addToWishlist(req.params.id,req.session.user._id).then(()=>{
+      console.log("dsdsfssssssssssssssssssss");
+      res.json({status:true})
+    })
+  
  })
 
- router.get('/search-products',(req,res)=>{
+ router.post('/remove-wishlist-product',(req,res)=>{
+  wishlistHelper.deletewishListProduct(req.body).then(()=>{
+    res.json({removeProduct:true})
+  })
+ })
+
+ router.get('/search-products',(req,res)=>{ 
     productHelpers.searchProduct
   
  })
@@ -539,4 +558,8 @@ router.post("/sendotp", (req, res) => {
     
    
     });
+
+ router.get('/404',(req,res)=>{
+  res.render('error404',{userlayout:true})
+ })   
 module.exports = router;

@@ -23,7 +23,7 @@ const passport = require('passport')
 // view engine setup
 app.use(nocache())
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('view engine', 'hbs'  );
 app.engine('hbs',hbs.engine({extname:'hbs',defaultLayout:'layout',layoutDir:__dirname + '/views/layout/',partialsDir:__dirname +'/views/partials'}))
 
 app.use(logger('dev'));
@@ -32,15 +32,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret:"thismysecretkey",
+  secret: process.env.sessionSecretKey,
   saveUninitialized:false,
   cookie: {maxAge:6000000000},
   resave:false
 
-}
-  
+} 
 ))
-
 // Set up Passport
 app.use(passport.initialize());
 app.use(passport.session());

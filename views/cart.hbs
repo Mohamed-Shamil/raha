@@ -195,7 +195,7 @@
                 } else {
 
                     document.getElementById(proId).innerHTML = quantity + count
-                    document.getElementById('total').innerHTML = response.total
+                    document.getElementById('total').innerHTML = response.total     
                     document.getElementById('subTotal').innerHTML = response.total
                 }
 
@@ -217,8 +217,23 @@
             method : 'post',
             success: (response) => {
                 if (response.removeProduct) {
-                   Swal.fire('Product Removed')
-
+                  Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
                     location.reload()
                 }
 

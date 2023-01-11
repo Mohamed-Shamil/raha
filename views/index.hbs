@@ -177,7 +177,7 @@
   </div>
 </div>
 
-                        <a href="wishlist.html" class="wishlist-link">
+                        <a href="/wishlist" class="wishlist-link">
                             <i class="icon-heart-o"></i>
                         </a>
 
@@ -759,16 +759,17 @@
                                                 <img src="/pictures/product-images/{{this.img.[1]}}" alt="Product image" class="product-image-hover">
                                             </a>
 
-                                            <div class="product-action-vertical">
-                                                <a onclick="addToWishlist('{{this._id}}')" class="btn-product-icon btn-wishlist" 
-                                                 title="Add to wishlist"><span>add to wishlist</span></a>
-                                            </div><!-- End .product-action -->
+                                           <!-- End .product-action -->
 
                                             <div class="product-action product-action-transparent">
                                                  <button class="btn-product btn-cart" style="border: none;" 
                                                     onclick="addToCart('{{this._id}}')"><span>Add to Cart</span></button>
                                             </div><!-- End .product-action -->
                                         </figure><!-- End .product-media -->
+                                         <div class="product-action-vertical">
+                                                <a onclick="addToWishlist('{{this._id}}')" class="btn-product-icon btn-wishlist" 
+                                                 title="Add to wishlist"><span>add to wishlist</span></a>
+                                            </div>
 
 
 
