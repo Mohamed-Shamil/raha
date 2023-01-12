@@ -42,11 +42,7 @@ module.exports= {
          
        },
 
-    addOffer:(req,res)=>{
-      adminHelpers.addOffer(req.body).then(()=>{
-        res.redirect('/admin/offer')
-      })
-    },  
+    // addOffer:,  
 
     returnOrder:async(req,res)=>{  
         let returns = await orderHelpers.showReturnedProducts()

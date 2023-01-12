@@ -122,7 +122,11 @@ router.get('/edit-banner/:id',verifyadmin,editBanner)
 router.get('/offer',verifyadmin,offer)
 
 //<-----------------------add Offer---------------------------->
-router.post('/add-offer',addOffer)
+router.post('/add-offer',(req,res)=>{
+  adminHelpers.addOffer(req.body).then(()=>{
+    res.redirect('/admin/offer')
+  })
+})
 
 //<-----------------------add coupon---------------------------->
 router.get('/add-coupon',verifyadmin,addCouponPage)

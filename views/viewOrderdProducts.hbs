@@ -266,7 +266,8 @@
 					</div>
 				</div>
 				{{#if (isDelivered this.status)}}
-					<a class="btn btn-info" href="/request-page/{{this.product._id}}/{{this._id}}">Request Return</a>
+					{{!-- <a class="btn btn-info" href="/request-page/{{this.product._id}}/{{this._id}}">Request Return</a> --}}
+					<a class="btn btn-success">Delivered</a>
 					
 				{{else}}
 				{{#if (returnRequest this.status)}}
