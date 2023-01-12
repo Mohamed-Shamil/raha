@@ -127,6 +127,7 @@ Handlebars.registerHelper('wishlistCount',(value)=>{
 
 
 
+
 db.connect((err)=>{
   if (err) console.log("Connection Error"+err);           
   else console.log("Database Connected to port 27017");

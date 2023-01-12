@@ -1,17 +1,24 @@
+<style>
+   #empty-cart{
+    margin-left: 50%;
+   } 
+</style>
+
+
 <div class="page-wrapper">
    
 
     <main class="main">
         <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
             <div class="container">
-                <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+                <h1 class="page-title">RAHA<span>CART</span></h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/show-products">Shop</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
                 </ol>
             </div><!-- End .container -->
@@ -22,7 +29,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-9">
-                            <table class="table table-cart table-mobile">
+                           
+                           {{#if (cartNum totalValue)}}
+                             <table class="table table-cart table-mobile">
                                 <thead>
                                     <tr>
                                         <th>Product</th>
@@ -56,10 +65,7 @@
                                         
 
                                         <td class="quantity-col">
-                                            {{!-- <div class="cart-product-quantity">
-                                                <input type="number" class="form-control" value="1" min="1" max="10"
-                                                    step="1" data-decimals="0" required>
-                                            </div><!-- End .cart-product-quantity --> --}}
+                                        
                                             <button class="cart-item-count mr-3"
                                                 onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}','-1')"
                                                 style="border: none;">-</button>
@@ -82,24 +88,18 @@
 
                                 </tbody>
                             </table><!-- End .table table-wishlist -->
+                           {{else}}
+                            <div id="empty-cart" class="col-12 md-6">
+                                <img src="/assets/images/cartempty.png" alt="">
+                                <b> <a href='/show-product'>continue shopping ➥</a></b>
+                            </div>
+                           {{/if}}
 
-                            {{!-- <div class="cart-bottom">
-                                <div class="cart-discount">
-                                    <form action="#">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" required placeholder="coupon code">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-primary-2" type="submit"><i
-                                                        class="icon-long-arrow-right"></i></button>
-                                            </div><!-- .End .input-group-append -->
-                                        </div><!-- End .input-group -->
-                                    </form>
-                                </div><!-- End .cart-discount -->
-
-                                <a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i
-                                        class="icon-refresh"></i></a>
-                            </div><!-- End .cart-bottom --> --}}
+                           
                         </div><!-- End .col-lg-9 -->
+
+                        
+                        {{#if (cartNum totalValue)}}
                         <aside class="col-lg-3">
                             <div class="summary summary-cart">
                                 <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
@@ -139,13 +139,16 @@
                                 {{#if (cartNum totalValue)}}
                                 <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO
                                     CHECKOUT</a>
+                                     {{else}}
+                                           <b> <a href='/show-product'>continue shopping ➥</a></b>
                                  {{/if}}
 
                             </div><!-- End .summary -->
 
                             <a href="/" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE
                                     SHOPPING</span><i class="icon-refresh"></i></a>
-                        </aside><!-- End .col-lg-3 -->
+                        </aside><!-- End .col-lg-3 -->  
+                        {{/if}}
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .cart -->
