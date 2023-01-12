@@ -38,17 +38,18 @@ module.exports= {
 
     offer:async(req,res)=>{
         product = await adminHelpers.showProducts()
-        console.log(product.percentage);
            res.render('admin/offer',{admin:true,adminlayout:true,product})
          
        },
 
     addOffer:(req,res)=>{
-        adminHelpers.addOffer(req.body)
-      },
+      adminHelpers.addOffer(req.body).then(()=>{
+        res.redirect('/admin/offer')
+      })
+    },  
 
     returnOrder:async(req,res)=>{  
         let returns = await orderHelpers.showReturnedProducts()
         res.render('admin/return',{admin:true,adminlayout:true,returns})
       }
-}
+} 

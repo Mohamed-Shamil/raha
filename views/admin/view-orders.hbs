@@ -75,8 +75,9 @@
                           
                         </tr>
                     </thead>
-                    {{#each orders}}
+                    
                     <tbody>
+                        {{#each orders}}
                         <tr>
                             <td scope="row">{{'inc' @index}}</td>
                             <td>{{this.date}} </td>
@@ -85,8 +86,9 @@
                             <td>{{this.totalAmount}}</td>
                             <td><a class="btn btn-success"  href="/admin/viewOrderProducts/{{this._id}}">View Products</a></td>
                         </tr>
+                          {{/each}}
                     </tbody>
-                    {{/each}}
+                  
                 </table>
               
 

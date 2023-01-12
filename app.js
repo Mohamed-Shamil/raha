@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: process.env.sessionSecretKey,
+  secret:"thismysecretkey",
   saveUninitialized:false,
   cookie: {maxAge:6000000000},
   resave:false
@@ -41,7 +41,7 @@ app.use(session({
 ))
 // Set up Passport
 app.use(passport.initialize());
-app.use(passport.session()); 
+app.use(passport.session());
 
 //Register Helpers
  
@@ -110,6 +110,19 @@ Handlebars.registerHelper('for', function(from, to, incr, block) {
 Handlebars.registerHelper('walletTransaction',(value)=>{
   return value > 0 ? true:false
 })
+Handlebars.registerHelper('sales',(value)=>{
+  return value == 'canceled' ? true : false
+})
+Handlebars.registerHelper('cartNum',(value)=>{
+  return value != 0 ? true:false
+})
+Handlebars.registerHelper('checkoutCount',(value)=>{
+  return value != 0 ?true:false
+})
+
+Handlebars.registerHelper('wishlistCount',(value)=>{
+  return value  == {} ?true:false
+})
 
 
 
@@ -137,7 +150,8 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  err.status = ""+err.status
+  res.render('error',{err});
 });
 
 module.exports = app;

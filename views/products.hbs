@@ -61,9 +61,7 @@
                                         <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
                                     </div><!-- End .rating-container --> --}}
 
-                                    <div class="product-price ">
-                                       ₹ {{products.price}}
-                                    </div><!-- End .product-price -->
+                                   
 
                                     <div class="product-content">
                                         <p>{{products.discription   }}</p>
@@ -71,33 +69,33 @@
 
                       
 
-                                    {{!-- <div class="details-filter-row details-row-size">
-                                        <label for="size">Size:</label>
-                                        <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="#" selected="selected">One Size</option>
-                                                <option value="s">Small</option>
-                                                <option value="m">Medium</option>
-                                                <option value="l">Large</option>
-                                                <option value="xl">Extra Large</option>
-                                            </select>
-                                        </div><!-- End .select-custom -->
-
-                                        <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                    </div><!-- End .details-filter-row --> --}} 
+                                
 
                                     <div class="product-details-action">
+                                         <div class="product-price ">
+                                       {{#if products.oldPrice}}
+                                            <div class="product-price" style="text-decoration:line-through;color:#d50000;font-size: 20px;" class="product-price">
+                                              was$ {{products.oldPrice}}
+                                            </div><!-- End .product-price -->
+                                            <div class="product-price  text-dark">
+                                              now ${{products.price}}
+                                            </div><!-- End .product-price -->
+                                            {{else}}
+                                            <div class="product-price" style="color:#000000;" class="product-price">
+                                                ${{products.price}}
+                                            </div><!-- End .product-price -->
+                                          
+                                            {{/if}}
+                                    </div><!-- End .product-price -->
+                                    <br>
                                         <div class="details-action-col">
-                                            <div class="product-details-quantity">
-                                                <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                            </div><!-- End .product-details-quantity -->
-
-                                            <button  onclick="addToCart('{{this._id}}')" class="btn-product btn-cart"><span >add to cart</span></button>
+                                            
+                                            <button  onclick="addToCart('{{products._id}}','{{products.stock}}')" class="btn-product btn-cart"><span >add to cart</span></button>
                                         </div><!-- End .details-action-col -->
 
                                         <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                                            <a href="" onclick="addToWishlist('{{products._id}}','{{products.stock}}')" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                            
                                         </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
 

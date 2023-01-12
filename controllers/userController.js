@@ -21,7 +21,12 @@ module.exports = {
       let dailySales = await adminHelpers.dailySalesReport()
       let monthlySales = await adminHelpers.monthlySalesReport()
       let yearlySales = await adminHelpers.yearlySalesReport()
-      res.render('admin/admin-index', { admin: true, adminlayout: true, dailySales, monthlySales, yearlySales });
+      let recentSales = await adminHelpers.recentsales()
+      let topSelling=await adminHelpers.topSellingProducts()
+      let customers=await adminHelpers.getUserCount()
+      let revenue=await adminHelpers.getRevenue()
+      total=revenue[0].total
+      res.render('admin/admin-index', { admin: true, adminlayout: true,recentSales,topSelling,customers,revenue,total, dailySales, monthlySales, yearlySales });
     } else {
       errMsg = req.session.Msg;
       res.render('admin/admin-login', { errMsg, adminlayout: true })

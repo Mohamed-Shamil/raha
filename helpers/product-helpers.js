@@ -115,7 +115,6 @@ module.exports={
         })
        },
        getproductsp:(limit)=>{
-       
         return new Promise(async(resolve, reject) => {
           let product=await db.get().collection(collection.PRODUCT_COLLECTION).find().skip(limit.startFrom).limit(limit.perpage).toArray()
           resolve(product)

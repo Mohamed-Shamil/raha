@@ -369,10 +369,14 @@
                                             </div><!-- End .card-header -->
                                         </div><!-- End .accordion --><br>
 
-                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                       
+                                           {{#if (checkoutCount total)}}
+                                            <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                             <span class="btn-text">Place Order</span>
                                             <span class="btn-hover-text">Proceed to Checkout</span>
-                                        </button>
+                                            </button>
+                                            {{/if}}
+                                       
                                     </div><!-- End .summary -->
                             </aside><!-- End .col-lg-3 -->
                         </div><!-- End .row -->

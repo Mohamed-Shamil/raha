@@ -18,8 +18,8 @@
                   <div class="d-flex flex-row align-items-center mb-1">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <p id="nameError" class="text d-flex justify-content-center" style="color: red;"></p>
-                      <input type="name" onkeyup="validateName()" name="name" id="username" class="form-control"
+                      <p id="error-name" class="text d-flex justify-content-center" style="color: red;"></p>
+                      <input type="name" onkeyup="validateName()" name="name" id="name" class="form-control"
                         placeholder="Your name" />
 
 
@@ -29,9 +29,9 @@
                   <div class="d-flex flex-row align-items-center mb-1">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <p id="emailError" class="text d-flex justify-content-center" style="color: red;"></p>
-                      <input type="email" id="email" onkeyup="validateEmail()" name="email" class="form-control"
-                        placeholder="Email" />
+                      <p id="error-mail" class="text d-flex justify-content-center" style="color: red;"></p>
+                      <input type="email" id="mail" onkeyup="validEmail()" name="email" class="form-control"
+                        placeholder="Email"/>
 
 
                     </div>
@@ -41,7 +41,7 @@
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <p id="phoneError" class="text d-flex justify-content-center" style="color: red;"></p>
-                      <input type="Phone" name="phone" onkeyup="validatePhone()" id="phoneNo" class="form-control"
+                      <input type="Phone" name="phone" onkeyup="validPhoneumber()" id="phoneNo" class="form-control"
                         placeholder="Phone Number" />
 
 
@@ -52,7 +52,7 @@
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <p id="passwordError" class="text d-flex justify-content-center" style="color: red;"></p>
-                      <input type="password" name="password" onkeyup="validatePassword()" id="password"
+                      <input type="password" name="password" onkeyup="validPassowrd()" id="password"
                         class="form-control" placeholder="Password" />
 
                     </div>
@@ -94,51 +94,97 @@
   </div>
 </section>
 
+
+
+   
+
+
+{{!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. --}}
+
+
+
 <script>
-
-  var nameError = document.getElementById('nameError')
-  var emailError = document.getElementById('emailError')
-  var phoneError = document.getElementById('phoneError')
-  var passwordError = document.getElementById('passwordError')
-
-  function validateName() {
-
-    let name = document.getElementById('username').value
-    if (name == " " || name == "  " || name == 0) {
-      nameError.innerHTML = "Name is required"
-      return false
-      if (name = '')
-    } else {
-      nameError.innerHTML = "valid"
-      return true
-    }
-  }
-
-  function validateEmail() {
-    let email = document.getElementById('email').value
-    if (email = " " || email= "  ") {
-      emailError.innerHTML = "Email is required"
-      if (email == '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/') {
-        emailError.innerHTML = "Characters are not allowed"
+  var errorName = document.getElementById('error-name')
+var errorEmail = document.getElementById('error-mail')
+var errorPassword = document.getElementById('passwordError')
+var errorPhonenumber = document.getElementById('phoneError')
+function validateName() {
+    const name = document.getElementById('name').value;
+    if (name == "") {
+        errorName.innerHTML = 'Enter your Name'
         return false
-      }
-      return false
-    }else {
-      nameError.innerHTML = "valid"
-      return true
+    }
+    if (!name.match(/^[a-zA-Z ]*$/)) {
+        errorName.innerHTML = 'Number are not allowed'
+        return false
+    }
+     if (name.match(/^[ ]*$/)) {
+        errorName.innerHTML = 'enter a valid name'
+        return false
+    }
+    errorName.innerHTML = null
+    return true
+}
+function validEmail() {
+    const email = document.getElementById('mail').value
+    if (email == "") {
+        errorEmail.innerHTML = "Enter your email address"
+        return false
+    }
+    if (!email.match(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/)) {
+        errorEmail.innerHTML = 'enter a proper email address'
+        return false
+    }
+    errorEmail.innerHTML = null
+    return true
+}
+function validPassowrd() {
+    const psd = document.getElementById('password').value
+    if (psd == ""||psd.match(/^[ ]*$/)) {
+        errorPassword.innerHTML = "Enter a password"
+        return false
+    }
+    if (psd.length < 5) {
+       
+        errorPassword.innerHTML = "password should be more than four characters"
+        return false
+    }
+    errorPassword.innerHTML = null
+    return true
+}
+
+
+
+ function validPhoneumber() {
+    const mob = document.getElementById('phoneNo').value
+    if (mob == "") {
+        errorPhonenumber.innerHTML = "enter a phonenumber"
+        return false
+    }
+    if(!mob.match(/^[0-9]{10}$/)){
+        errorPhonenumber.innerHTML = "Enter valid phone number"
+        return false
+    }
+    errorPhonenumber.innerHTML = null
+    return true
+}
+
+    function check(){
+          let validatearray =[!validateName() , !validEmail() , !validPassowrd() , !validPhoneumber() , !cPassowrd()]
+
+          return validatearray.every(validation)
+         
+
     }
 
-  }
 
 
-  function validateForm() {
-    if (validateName()) {
-      return true
-    } else {
-      validateName()
-      return false
+function validateForm() {
+    if (!validateName() || !validEmail() || !validPassowrd() || !validPhoneumber() || !cPassowrd()) {
+        return false
     }
-  }
+    return true
+}
 </script>
 
 </body>

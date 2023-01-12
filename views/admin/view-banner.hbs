@@ -1,36 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>RAHA admin</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="/admin-assets/img/favicon.png" rel="icon">
-  <link href="/admin-assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="/admin-assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/admin-assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/admin-assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/admin-assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="/admin-assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="/admin-assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/admin-assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/admin-assets/css/style.css" rel="stylesheet">
 
 
-</head>
 
 <body>
 
@@ -40,56 +9,44 @@
 
     <div class="pagetitle">
       <h1>View Banners</h1>
-   
+     
     </div><!-- End Page Title -->
-
-    
-           
-
-
-          
-
-        
 
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Banners</h5>
-              
-             
-
-             
+   
 
               <!-- Primary Color Bordered Table -->
-              <table class="table text-center table-bordered table-hover datatable ">
+              <table class="table datatable table-hover ">
                 <thead>
                   <tr>
                     <th scope="col">SI No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Discription</th>
                     <th scope="col">Image</th>
-                    <th scope="col">Operations</th>
+                    <th scope="col">Action</th>
                   </tr>
-                </thead>{{#each banner}}
+                </thead>
+                
                 <tbody>
-                  
-                  <tr  >
-                    <th scope="row">{{ 'inc'@index}}</th>
+                  {{#each banner}}
+                
+                    <th scope="row">{{'inc' @index}}</th>
                     <td>{{this.banner}}</td>
-                    <td>{{this.discription}}</td> 
-                    <td class="d-flex justify-content-center"><img style="height:60px ;width:50px;" src="/pictures/banner-images/{{this.img}}" ></td>    
-                    <td>
-                        <button class="btn btn-warning" onclick="fetchBanner('{{this._id}}')" data-bs-toggle="modal" data-bs-target="#edit-banner-modal{{this._id}}"><a class="text-white" >Edit</a></button>
+                    <td>{{this.discription}}</td>
+                      <td class="d-flex justify-content-center"><img style="height:100px ;width:250px;" src="/pictures/banner-images/{{this.img}}" ></td>    
+                   <td>
+                        {{!-- <button class="btn btn-warning" onclick="fetchBanner('{{this._id}}')" data-bs-toggle="modal" data-bs-target="#edit-banner-modal{{this._id}}"><a class="text-white" >Edit</a></button> --}}
                         <button class="btn btn-danger" onclick="bannerdelete('{{this._id}}')">Delete</button>
-                    </td>            
+                    </td>   
+                   
                   </tr>
-                 
+                  {{/each}}
                 </tbody>
-                {{/each}}
-              
+               
               </table>
               <!-- End Primary Color Bordered Table -->
--
-        
 
             </div>
           </div>
@@ -101,9 +58,8 @@
     </section>
 
   </main><!-- End #main -->
- 
- 
- {{!-- edit banner modal  --}}
+
+  {{!-- edit banner modal  --}}
 {{#each banner}}
 <div class="modal fade" id="edit-banner-modal{{this._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -154,6 +110,9 @@
 {{/each}}
 
 {{!-- modal ends  --}}
+
+ 
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
@@ -169,8 +128,7 @@
   <!-- Template Main JS File -->
   <script src="/admin-assets/js/main.js"></script>
 
-
-<script>
+  <script>
     function bannerdelete(bannerId){
        
         $.ajax({
@@ -215,6 +173,6 @@
     })
   })
 </script>
+
 </body>
 
-</html> 

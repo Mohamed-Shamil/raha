@@ -262,10 +262,12 @@ module.exports = {
     })
   },
   addOffer: (offerDetails) => {
+    
     let percentage = parseInt(offerDetails.percentage);
     return new Promise(async (resolve, reject) => {
       let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: ObjectID(offerDetails.proId) })
       let offerPrice = product.price - (product.price * percentage / 100)
+
        
       db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectID(offerDetails.proId) }, {
         $set: {
@@ -312,6 +314,104 @@ module.exports = {
         resolve()
       })
     })
+  },
+  recentsales:()=> {
+    return new Promise((resolve, reject) => {
+      console.log("hellpooooooooooooooooooooo");
+      db.get()
+        .collection(collection.ORDER_COLLECTION)
+        .aggregate([
+          {
+            $unwind: "$products",
+          },
+         
+          {
+            $unwind:"$deliveryDetails"
+          },
+          {
+            $lookup: {
+              from: collection.PRODUCT_COLLECTION,
+              localField: "products.item",
+              foreignField: "_id",
+              as: "productDetail",
+            }
+          },
+          {
+            $unwind:"$productDetail"
+          },{
+            $sort:{time:-1}
+          },{
+            $limit:6
+          }
+         
+
+        
+        ])
+        .toArray()
+        .then((response) => {
+          
+          resolve(response);
+        });
+    });
+  },topSellingProducts: () => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collection.ORDER_COLLECTION)
+        .aggregate([
+          {
+            $unwind: "$products",
+          },
+          {
+            $group: {
+              _id: "$products.item",
+              count: { $sum: "$products.quantity" },
+            },
+          },
+          {
+            $sort: { count: -1 },
+          },
+          {
+            $limit: 5,
+          },
+          {
+            $lookup: {
+              from: collection.PRODUCT_COLLECTION,
+              localField: "_id",
+              foreignField: "_id",
+              as: "productDetails",
+            },
+          },{
+            $unwind:'$productDetails'
+          },
+        ])
+        .toArray()
+        .then((response) => {
+          resolve(response);
+        });
+    });
+  },getUserCount: () => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collection.USER_COLLECTION)
+        .find()
+        .count()
+        .then((response) => {
+          resolve(response);
+        });
+    });
+  },getRevenue:()=>{
+    return new Promise((resolve, reject) => {
+      let revenue=db.get().collection(collection.ORDER_COLLECTION).aggregate([{
+        $group: {
+          _id: null,
+          total: { $sum: "$totalAmount" },
+        }
+      }
+
+      ]).toArray()
+      resolve(revenue)
+    })
+   
   }
 
 }

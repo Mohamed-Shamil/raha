@@ -47,7 +47,7 @@ const checkBlock =  async(req,res,next)=>{
 const cartCount = async(req,res,next)=>{
   if(req.session.loggedIn){
    let cartCount = await userHelpers.getCartCount(req.session.user._id);
-   res.locals.userLogin =   req.session.user
+    res.locals.userLogin =   req.session.user
 
    res.locals.cartCount=cartCount
     next() 
@@ -75,10 +75,10 @@ router.get('/',async(req,res,next)=> {
    category = await productHelpers.viewCategory();
    products = await productHelpers.viewProducts();
    banners= await productHelpers.viewBanner();
-   console.log(banners);
+  
   
         res.render('index',{category,products,banners,cartCount,userLogin,userlayout:true});
-
+  
   
 
  
@@ -146,7 +146,7 @@ router.get('/product/:id',async(req,res)=>{
   router.get('/show-product',cartCount,async(req,res)=>{
     
      let category = req.params.name
-    // products = await productHelpers.viewProducts();//
+    
     let page={}
     let userLogin =  req.session.user
 
@@ -156,10 +156,11 @@ router.get('/product/:id',async(req,res)=>{
     page.pageno=(req.query.page==null)?1:parseInt(req.query.page)
     page.startFrom=(page.pageno -1)*page.perpage
     let products=await productHelpers.getproductsp(page)
-    
-    
 
-    res.render('allProducts',{user:true,products,userlayout:true,category,page,userLogin  })
+    console.log(products);
+    console.log("gkkkkkkkkkkkkkkkkkh");
+
+    res.render('allProducts',{user:true,products,userlayout:true,category,page,userLogin})
   })
 
 
@@ -194,8 +195,7 @@ userHelpers.otpUserVerify(req.body).then((response)=>{
   if(response.status){
     phone_no = parseInt(req.body.phone)
   
-    client.verify
-    .services(process.env.twilioServieId) // Change service ID
+    client.verify.services(process.env.twilioServieId) // Change service ID
       .verifications.create({
         to: `+91${req.body.phone}`,
         channel:  "sms",
@@ -487,6 +487,7 @@ router.get('/get-address/:id',async(req,res)=>{
 router.get('/wishlist',verifyLogin,cartCount,async(req,res)=>{
 
   products = await wishlistHelper.viewWishlist(req.session.user._id)
+  console.log("nnnnnnnvnn,,,,,,,,,,,,,,,,,,,,,");;
   res.render('wishlist',{userlayout:true,user:true,products})
 })
 
@@ -494,7 +495,7 @@ router.get('/wishlist',verifyLogin,cartCount,async(req,res)=>{
 
  router.get('/add-to-wishlist/:id',(req,res)=>{ 
     wishlistHelper.addToWishlist(req.params.id,req.session.user._id).then(()=>{
-      console.log("dsdsfssssssssssssssssssss");
+      
       res.json({status:true})
     })
   
@@ -559,7 +560,7 @@ router.post("/sendotp", (req, res) => {
    
     });
 
- router.get('/404',(req,res)=>{
-  res.render('error404',{userlayout:true})
+ router.get('/404',cartCount,(req,res)=>{
+  res.render('error404',{userlayout:true,user:true})
  })   
 module.exports = router;

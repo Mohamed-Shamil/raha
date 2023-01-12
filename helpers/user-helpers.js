@@ -261,10 +261,12 @@ module.exports = {
         let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proId) })
 
         let prices = product.price
+        let stock = product.stock
         let proObj = {
             item: objectId(proId),
             quantity: 1,
-            price: parseInt(prices)
+            price: parseInt(prices),
+            stock:parseInt(stock)
         }
 
         return new Promise(async (resolve, reject) => {

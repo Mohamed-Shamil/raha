@@ -1,70 +1,45 @@
-<head>
 
-
-  <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
-   <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
-  </head>
 
 
 <body>
 
-
+ 
 
   <main id="main" class="main">
 
     <div class="pagetitle">
       <h1>View Users</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">View Users</li>
-        </ol>
-      </nav>
+     
     </div><!-- End Page Title -->
 
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Users</h5>
+   
 
-
-
-
-
-
-
-
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Users</h5>
-
-
-
-
-
-        <!-- Primary Color Bordered Table -->
-        <table id="userTable" class="table text-center ">
-          <thead>
-            <tr>
-              <th scope="col">SI No</th>
-              <th scope="col">Name</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each viewUser}}
-            <tr>
-              <th scope="row">{{'inc' @index}}</th>
-              <td>{{this.name}}</td>
-              <td>{{this.phone}}</td>
-              <td>{{this.email}}</td>
-
-              <td>
-                {{!-- {{#if this.status}}
-                <a href="/admin/block/{{this._id}}" class="btn btn-danger">Block</a>
-                {{else}}
-                <a href="/admin/unblock/{{this._id}}" class="btn btn-success">Unblock</a>
-                {{/if}} --}}
-                {{!-- =========================== --}}
+              <!-- Primary Color Bordered Table -->
+              <table class="table datatable table-hover ">
+                <thead>
+                  <tr>
+                    <th scope="col">SI No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  {{#each viewUser}}
+                  
+                    <th scope="row">{{'inc' @index}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.phone}}</td>
+                    <td>{{this.email}}</td>
+                    
+                    <td>
+                        
+                        {{!-- =========================== --}}
                 <div class="form-check form-switch">
                 {{#if this.status}}
                   <input class="form-check-input" onclick="blockUser('{{this._id}}','false')" type="checkbox" role="switch" id="flexSwitchCheckDefault">
@@ -75,32 +50,31 @@
                   {{/if}} 
                 </div>
                 {{!-- --------------------------- --}}
-              </td>
-            </tr>
 
-          </tbody>
-          {{/each}}
-        </table>
-        <!-- End Primary Color Bordered Table -->
-       
+                    </td>
+                   
+                  </tr>
+                  {{/each}}
+                </tbody>
+               
+              </table>
+              <!-- End Primary Color Bordered Table -->
+
+            </div>
+          </div>
+
+          
+
+        </div>
       </div>
-    </div>
-
-
-
-    </div>
-    </div>
     </section>
-
 
   </main><!-- End #main -->
 
+ 
 
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
   <!-- Vendor JS Files -->
   <script src="/admin-assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/admin-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -113,12 +87,7 @@
 
   <!-- Template Main JS File -->
   <script src="/admin-assets/js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="/admin-assets/js/main.js"></script>
   <script>
    function blockUser(userId,status){
     $.ajax({
@@ -138,8 +107,7 @@
     $('#userTable').DataTable();
 } );
 </script>
+   
 
 </body>
 
-
-</html>
