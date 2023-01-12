@@ -464,7 +464,8 @@ router.get('/get-address/:id',async(req,res)=>{
   
    showCategory = await productHelpers.viewProCategory(req.params.categoryName)
   
-   console.log(showCategory);
+   console.log(showCategory.price);
+   console.log("dcghntiiiiiiiiiiiiiiiii");
      res.render('product-category',{user:true,showCategory,userlayout:true})
 
  
@@ -507,14 +508,16 @@ router.get('/wishlist',verifyLogin,cartCount,async(req,res)=>{
   })
  })
 
- router.get('/search-products',(req,res)=>{ 
-    productHelpers.searchProduct
+//  router.get('/search-products',(req,res)=>{ 
+//     productHelpers.searchProduct
   
- })
+//  })
 
  router.post('/search',async(req,res)=>{
   
   searchDetails = await productHelpers.searchProduct(req.body)
+  console.log(searchDetails);
+  console.log("fgggggggggggggggggg");
 
     res.render('searchProducts',{user:true,userlayout:true,searchDetails})
 

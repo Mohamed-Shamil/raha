@@ -31,44 +31,37 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                                    <a href="#" onclick="addToWishlist('{{this._id}}','{{this.stock}}')" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                   
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
                                                    <button class="btn-product btn-cart" style="border: none;" 
-                                                    onclick="addToCart('{{this._id}}')"><span>Add to Cart</span></button>
+                                                     onclick="addToCart('{{this._id}}','{{this.stock}}')"><span>Add to Cart</span></button>
                                                 </div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
 
-                                            <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="#">{{this.offerPrice}}</a>
+                                            <div class="product-body ">
+                                                <div class="product-cat text-center">
+                                                   {{#if this.oldPrice}}
+                                            <div class="product-price" style="text-decoration:line-through;color:#d50000;" class="product-price">
+                                             was₹{{this.oldPrice}}
+                                            </div><!-- End .product-price -->
+                                            <div class="product-price  text-success">
+                                              now ₹{{this.price}}
+                                            </div><!-- End .product-price -->
+                                            {{else}}
+                                            <div class="product-price" style="color:#028100;" class="product-price">
+                                              now  ₹{{this.price}}
+                                            </div><!-- End .product-price -->
+                                          
+                                            {{/if}}
                                                 </div><!-- End .product-cat -->
-                                                <h3 class="product-title"><a href="product.html">{{this.name}}</a></h3><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    $60.00{{this.name}}
-                                                </div><!-- End .product-price -->
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                    <span class="ratings-text">( 2 Reviews )</span>
-                                                </div><!-- End .rating-container -->
+                                               <b class="product-title"><a href="product.html">{{this.name}}</a></b><!-- End .product-title -->
+                                                
+                                                
 
-                                                <div class="product-nav product-nav-thumbs">
-                                                    {{!-- <a href="#" class="active">
-                                                        <img src="assets/images/products/product-4-thumb.jpg" alt="product desc">
-                                                    </a>
-                                                    <a href="#">
-                                                        <img src="assets/images/products/product-4-2-thumb.jpg" alt="product desc">
-                                                    </a>
-
-                                                    <a href="#">
-                                                        <img src="assets/images/products/product-4-3-thumb.jpg" alt="product desc">
-                                                    </a> --}}
-                                                </div><!-- End .product-nav -->
+                                              
                                             </div><!-- End .product-body -->
                                         </div><!-- End .product -->
                                     </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->

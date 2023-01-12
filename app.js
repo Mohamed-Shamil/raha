@@ -124,8 +124,9 @@ Handlebars.registerHelper('wishlistCount',(value)=>{
   return value  == {} ?true:false
 })
 
-
-
+Handlebars.registerHelper('isFound',(value)=>{
+  return value == [] ?  false:true
+})
 
 
 db.connect((err)=>{

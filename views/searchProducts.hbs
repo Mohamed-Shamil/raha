@@ -17,8 +17,8 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/show-products">Shop</a></li>
                         <li class="breadcrumb-item active" aria-current="page">List</li>
                     </ol>
                 </div><!-- End .container -->
@@ -28,9 +28,8 @@
                 <div class="container">
                 	<div class="row">
                 		<div class="col-lg-9">
-                			
-
-                            <div class="products mb-3">
+                			{{#if (isFound searchDetails)}}
+                                <div class="products mb-3">
                                 <div class="product product-list">
                                     <div class="row">
                                         {{#each searchDetails}}
@@ -46,29 +45,33 @@
                                         <div class="col-6 col-lg-3 order-lg-last">
                                             <div class="product-list-action">
                                                 <div class="product-price">
-                                                    $60.00
+                                                   {{#if this.oldPrice}}
+                                            <div class="product-price" style="text-decoration:line-through;color:#d50000;" class="product-price">
+                                             was₹{{this.oldPrice}}
+                                            </div><!-- End .product-price -->
+                                            <div class="product-price  text-success">
+                                              now ₹{{this.price}}
+                                            </div><!-- End .product-price -->
+                                            {{else}}
+                                            <div class="product-price" style="color:#028100;" class="product-price">
+                                              now  ₹{{this.price}}
+                                            </div><!-- End .product-price -->
+                                          
+                                            {{/if}}
                                                 </div><!-- End .product-price -->
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                    <span class="ratings-text">( 2 Reviews )</span>
-                                                </div><!-- End .rating-container -->
+                                            
 
-                                                <div class="product-action">
-                                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                                    <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                                                </div><!-- End .product-action -->
 
-                                                <a   onclick="addToCart('{{this._id}}')" class="btn-product btn-cart"><span>add to cart</span></a>
+
+                                                <a   onclick="addToCart('{{this._id}}','{{this.stock}}')" class="btn-product btn-cart"><span>add to cart</span></a>
                                             </div><!-- End .product-list-action -->
                                         </div><!-- End .col-sm-6 col-lg-3 -->
 
                                         <div class="col-lg-6">
                                             <div class="product-body product-action-inner">
-                                                <a href="#" class="btn-product btn-wishlist" title="Add to wishlist"><span>add to wishlist</span></a>
+                                                <a href="#" onclick="addToWishlist('{{this._id}}','{{this.stock}}')" class="btn-product btn-wishlist" title="Add to wishlist"><span>add to wishlist</span></a>
                                                 <div class="product-cat">
-                                                    <a href="#">{{this.name}}</a>
+                                                    <a href="">{{this.name}}</a>
                                                 </div><!-- End .product-cat -->
                                                 <h3 class="product-title"><a href="product.html">{{this.category}}</a></h3><!-- End .product-title -->
 
@@ -90,7 +93,9 @@
                                                 </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
                                         </div><!-- End .col-lg-6 -->
+                                        
                                         {{/each}}
+                                        
                                     </div><!-- End .row -->
                                 </div><!-- End .product -->
 
@@ -98,25 +103,21 @@
 
                                
                             </div><!-- End .products -->
+                            {{else}}
+                            <div class="d-flex justify-content-center">
 
-                			<nav aria-label="Page navigation">
-							    <ul class="pagination">
-							        <li class="page-item disabled">
-							            <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
-							                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
-							            </a>
-							        </li>
-							        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-							        <li class="page-item"><a class="page-link" href="#">2</a></li>
-							        <li class="page-item"><a class="page-link" href="#">3</a></li>
-							        <li class="page-item-total">of 6</li>
-							        <li class="page-item">
-							            <a class="page-link page-link-next" href="#" aria-label="Next">
-							                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
-							            </a>
-							        </li>
-							    </ul>
-							</nav>
+                               <img style="height: 250px;" src="/assets/images/no-product.png" alt="">
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <h3 class="text-danger">Sorry No such Product Found !</h3>
+                            </div>
+
+                            {{/if}}
+
+                            
+
+                			
                 		</div><!-- End .col-lg-9 -->
                 		
                 	</div><!-- End .row -->

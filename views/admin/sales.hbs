@@ -235,7 +235,6 @@
    </div>
 
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 
@@ -288,8 +287,6 @@
         })
         doc.save('sales-weekly-report.pdf');
     } 
-
-
     function monthlyReportPDF() {
         var doc = new jsPDF('p', 'pt', 'letter');
         var htmlstring = '';
@@ -337,8 +334,6 @@
         })
         doc.save('sales-monthly-report.pdf');
     } 
-
-
     function yearlyReportPDF() {
         var doc = new jsPDF('p', 'pt', 'letter');
         var htmlstring = '';
@@ -386,98 +381,61 @@
         })
         doc.save('sales-yearly-report.pdf');
     } 
-
-
     
     function dailyData() {
         const data = `
                 ,date,Total,no.of Order
-            {{#each DailySalesforDownload}}
-                ,{{_id}},{{DailySaleAmount}},{{count}}
+            {{#each dailysales}}
+                ,{{_id}},{{dailySaleAmount}},{{count}}
             {{/each}},GrandTotal,{{totalDaily.[0].GrandTotal}}`
-
         const blob = new Blob([data], { type: 'octet-stream' })
-
         const href = URL.createObjectURL(blob)
-
         const a = Object.assign(document.createElement('a'), {
             href,
             style: 'display:none',
             download: 'data.csv'
         })
-
         document.body.appendChild(a)
-
         a.click()
-
         URL.revokeObjectURL(href)
-
         a.remove()
     }
-
     function monthlyData() {
         const data = `
             ,date, Total,no.of Order
-        {{#each MonthlySalesforDownload}}
+        {{#each MonthlySalesforDown}}
             ,{{_id}},{{MonthlySaleAmount}},{{count}}
         {{/each}},GrandTotal,{{totalDaily.[0].GrandTotal}}`
-
         const blob = new Blob([data], { type: 'octet-stream' })
-
         const href = URL.createObjectURL(blob)
-
         const a = Object.assign(document.createElement('a'), {
             href,
             style: 'display:none',
             download: 'data.csv'
         })
-
         document.body.appendChild(a)
-
         a.click()
-
         URL.revokeObjectURL(href)
-
         a.remove()
     }
-
     function yearlyData() {
         const data = `
             ,date, Total,no.of Order
         {{#each YearlySalesforDownload}}
             ,{{_id}},{{YearlySaleAmount}},{{count}}
         {{/each}},GrandTotal,{{monthtotal.[0].GrandTotal}}`
-
         const blob = new Blob([data], { type: 'octet-stream' })
-
         const href = URL.createObjectURL(blob)
-
         const a = Object.assign(document.createElement('a'), {
             href,
             style: 'display:none',
             download: 'data.csv'
         })
-
         document.body.appendChild(a)
-
         a.click()
-
         URL.revokeObjectURL(href)
-
         a.remove()
     }
-
-     </script>
-
-     <script>
-      $(document).ready(function() {
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} );
      </script>
 
 

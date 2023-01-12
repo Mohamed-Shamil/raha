@@ -215,9 +215,11 @@ module.exports={
         })
     },
     viewProCategory:(catgry)=>{
-       
+        console.log("nnnnnnnnnnnnnnnnnnnnnn");
         return new Promise(async(resolve,reject)=>{
-           let category=await db.get().collection(collection.PRODUCT_COLLECTION).find({category:catgry}).toArray()
+           let category = await db.get().collection(collection.PRODUCT_COLLECTION).find({category:catgry}).toArray()
+           console.log(category);
+          
            resolve(category)
         })
     },
